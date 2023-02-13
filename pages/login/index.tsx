@@ -90,7 +90,7 @@ const Login: NextPage = (props: any) => {
 export const getServerSideProps: GetStaticProps = async (context: any) => {
   return {
     props: {
-      referer: context.req.headers.referer
+      referer: context.req.headers.referer || ''
     }
   }
 }
