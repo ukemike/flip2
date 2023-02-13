@@ -1,0 +1,98 @@
+.upload_input {
+    position: relative;
+    // width: 400px;
+    // height: 200px;
+    border: 1px dashed #0d6efd;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f8ff;
+    margin-bottom: 16px;
+
+    &:hover {
+        opacity: 0.6;
+    }
+
+    &.dragover {
+        opacity: 0.6;
+    }
+
+
+    .label {
+        text-align: center;
+        color: #ccc;
+        font-weight: 600;
+        padding: 10px;
+    }
+
+    input {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        cursor: pointer;
+    }
+
+}
+
+.file_preview {
+    margin-top: 20px;
+
+    .preview_title {
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .preview_item {
+        position: relative;
+        display: flex;
+        margin-bottom: 10px;
+        background-color: #f5f8ff;
+        padding: 15px;
+        border-radius: 8px;
+
+        &:hover {
+            background-color: #e8f0fe;
+        }
+
+        .preview_item_info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-left: 10px;
+
+            .preview_item_name {
+                font-weight: 600;
+                font-size: 16px;
+                color: #4267b2;
+            }
+
+            .preview_item_size {
+                font-size: 14px;
+                color: #ccc;
+            }
+        }
+
+        .preview_item_del {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            color: red;
+        }
+    }
+
+}

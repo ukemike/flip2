@@ -1,0 +1,1 @@
+export const baseApi = 'https://backendapi.flip.onl/api/';

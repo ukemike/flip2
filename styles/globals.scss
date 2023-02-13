@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/Inter/static/Inter-Light.ttf");
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/Inter/static/Inter-Regular.ttf");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/Inter/static/Inter-Medium.ttf");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/Inter/static/Inter-SemiBold.ttf");
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Inter";
+    src: url("../public/fonts/Inter/static/Inter-Bold.ttf");
+    font-weight: 700;
+    font-style: normal;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-lg shadow-md p-4;
+  }
+
+  .outline-btn {
+    @apply text-sm font-medium text-gray16 border-[1px] border-primary3 px-4 py-2 rounded-[10px] flex items-center justify-center w-full transition duration-300 ease-in-out;
+  }
+
+  .filled-btn {
+    @apply text-sm font-medium text-white bg-primary3 px-4 py-2 rounded-[10px] relative overflow-hidden btn w-full
+  }
+
+  .input {
+    @apply rounded-[10px] py-3 px-2 text-sm text-gray11 font-light bg-white border-[0.8px] border-gray20
+  }
+
+}
+
+@layer utilities {
+  .btn {
+    @apply transition duration-300 ease-in-out;
+  }
+}
+
+@layer utilities {
+//  focus: outline-none focus:ring-[1px] focus:ring-primary6 focus:border-transparent
+  .input {
+    @apply focus:outline-none focus:ring-[1px] focus:ring-primary6 focus:border-transparent;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: #F5F5F5;
+  // font-family: "TV 2 Sans Display", sans-serif;
+}
+
+.hover:hover {
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+  transform: translateX(5px);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn span {
+  transform: translateX(-101%);
+  transition: transform .2s ease-in
+}
+
+.btn:hover span {
+  transform: translateX(0);
+  transition: transform .2s ease-in;
+}
+
+.outline-btn:hover {
+  color: #19A0FD;
+}
+
+/*  styling scrollbars  */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0195FF;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a5aaad;
+}
