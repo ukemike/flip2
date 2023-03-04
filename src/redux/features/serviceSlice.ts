@@ -124,9 +124,12 @@ export const removeServiceImage = createAsyncThunk(
 
 export const getAllServices = createAsyncThunk(
     'service/getAllServices',
-    async (thunkAPI: any) => {
+    async (data: any, thunkAPI: any) => {
+        const { search, category, state, lga, byMerchant } = data;
         try {
-            const response = await axios.get(`${baseApi}flip/service/all-services`);
+            const response = await axios.get(`
+            ${baseApi}flip/service/all-services?search=${search}&category=${category}&state=${state}&lga=${lga}&byMerchant=${byMerchant}
+            `);
             return response.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -163,6 +166,18 @@ export const getServicesCategory = createAsyncThunk(
     async (thunkAPI: any) => {
         try {
             const response = await axios.get(`${baseApi}flip/service/categories`);
+            return response.data;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+);
+
+export const getMerchantCategory = createAsyncThunk(
+    'service/getMerchantCategory',
+    async (thunkAPI: any) => {
+        try {
+            const response = await axios.get(`${baseApi}flip/merchant/merchant-categories`);
             return response.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -309,6 +324,10 @@ interface ServiceState {
     loadingAcceptRejectServiceRequest: boolean;
     successAcceptRejectServiceRequest: boolean;
     errorAcceptRejectServiceRequest: string;
+    loadingFetchMerchantCategories: boolean;
+    successFetchMerchantCategories: boolean;
+    errorFetchMerchantCategories: string;
+    merchantCategories: any;
 }
 
 const initialState: ServiceState = {
@@ -328,6 +347,10 @@ const initialState: ServiceState = {
 
     loadingFetcServiceRequest: false,
     successFetcServiceRequest: false,
+    errorFetchMerchantCategories: '',
+    loadingFetchMerchantCategories: false,
+    successFetchMerchantCategories: false,
+    merchantCategories: [],
     errorFetcServiceRequest: '',
     serviceRequests: [],
     loadingAcceptRejectServiceRequest: false,
@@ -346,6 +369,7 @@ const serviceSlice = createSlice({
             state.successActivateServiceDeactivateService = false;
             state.successAcceptRejectServiceRequest = false;
             state.successFetcServiceRequest = false;
+            state.successFetchMerchantCategories = false;
         },
         clearError: (state) => {
             state.error = '';
@@ -358,6 +382,7 @@ const serviceSlice = createSlice({
             state.successAcceptRejectServiceRequest = false;
             state.errorFetcServiceRequest = '';
             state.successFetcServiceRequest = false;
+            state.errorFetchMerchantCategories = '';
         }
     },
 
@@ -381,11 +406,11 @@ const serviceSlice = createSlice({
         builder.addCase(createService.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(createService.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
 
         builder.addCase(updateService.pending, (state) => {
@@ -394,11 +419,11 @@ const serviceSlice = createSlice({
         builder.addCase(updateService.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(updateService.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
 
         builder.addCase(addServiceImages.pending, (state) => {
@@ -407,11 +432,11 @@ const serviceSlice = createSlice({
         builder.addCase(addServiceImages.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(addServiceImages.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
 
         builder.addCase(activateService.pending, (state) => {
@@ -420,11 +445,11 @@ const serviceSlice = createSlice({
         builder.addCase(activateService.fulfilled, (state, action: PayloadAction<any>) => {
             state.loadingActivateServiceDeactivateService = false;
             state.successActivateServiceDeactivateService = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(activateService.rejected, (state, action: PayloadAction<any>) => {
             state.loadingActivateServiceDeactivateService = false;
-            state.errorActivateServiceDeactivateService = action.payload.message;
+            state.errorActivateServiceDeactivateService = action.payload?.message;
         });
         builder.addCase(deactivateService.pending, (state) => {
             state.loadingActivateServiceDeactivateService = true;
@@ -432,11 +457,11 @@ const serviceSlice = createSlice({
         builder.addCase(deactivateService.fulfilled, (state, action: PayloadAction<any>) => {
             state.loadingActivateServiceDeactivateService = false;
             state.successActivateServiceDeactivateService = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(deactivateService.rejected, (state, action: PayloadAction<any>) => {
             state.loadingActivateServiceDeactivateService = false;
-            state.errorActivateServiceDeactivateService = action.payload.message;
+            state.errorActivateServiceDeactivateService = action.payload?.message;
         });
         builder.addCase(removeServiceImage.pending, (state) => {
             state.loading = true;
@@ -444,11 +469,11 @@ const serviceSlice = createSlice({
         builder.addCase(removeServiceImage.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(removeServiceImage.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
         builder.addCase(getAllServices.pending, (state) => {
             state.loadingFetchServices = true;
@@ -516,11 +541,11 @@ const serviceSlice = createSlice({
         builder.addCase(requestService.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(requestService.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
         builder.addCase(getServiceRequestByMerchant.pending, (state) => {
             state.loadingFetcServiceRequest = true;
@@ -532,7 +557,7 @@ const serviceSlice = createSlice({
         });
         builder.addCase(getServiceRequestByMerchant.rejected, (state, action: PayloadAction<any>) => {
             state.loadingFetcServiceRequest = false;
-            state.errorFetcServiceRequest = action.payload.message;
+            state.errorFetcServiceRequest = action.payload?.message;
         });
         builder.addCase(acceptServiceRequest.pending, (state) => {
             state.loadingAcceptRejectServiceRequest = true;
@@ -540,11 +565,11 @@ const serviceSlice = createSlice({
         builder.addCase(acceptServiceRequest.fulfilled, (state, action: PayloadAction<any>) => {
             state.loadingAcceptRejectServiceRequest = false;
             state.successAcceptRejectServiceRequest = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(acceptServiceRequest.rejected, (state, action: PayloadAction<any>) => {
             state.loadingAcceptRejectServiceRequest = false;
-            state.errorAcceptRejectServiceRequest = action.payload.message;
+            state.errorAcceptRejectServiceRequest = action.payload?.message;
         });
         builder.addCase(rejectServiceRequest.pending, (state) => {
             state.loadingAcceptRejectServiceRequest = true;
@@ -552,11 +577,11 @@ const serviceSlice = createSlice({
         builder.addCase(rejectServiceRequest.fulfilled, (state, action: PayloadAction<any>) => {
             state.loadingAcceptRejectServiceRequest = false;
             state.successAcceptRejectServiceRequest = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(rejectServiceRequest.rejected, (state, action: PayloadAction<any>) => {
             state.loadingAcceptRejectServiceRequest = false;
-            state.errorAcceptRejectServiceRequest = action.payload.message;
+            state.errorAcceptRejectServiceRequest = action.payload?.message;
         });
 
         builder.addCase(getServiceRequestByConsumer.pending, (state) => {
@@ -569,7 +594,7 @@ const serviceSlice = createSlice({
         });
         builder.addCase(getServiceRequestByConsumer.rejected, (state, action: PayloadAction<any>) => {
             state.loadingFetcServiceRequest = false;
-            state.errorFetcServiceRequest = action.payload.message;
+            state.errorFetcServiceRequest = action.payload?.message;
         });
         builder.addCase(payForServiceRequest.pending, (state) => {
             state.loading = true;
@@ -577,11 +602,11 @@ const serviceSlice = createSlice({
         builder.addCase(payForServiceRequest.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(payForServiceRequest.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
         builder.addCase(confirmServiceRequest.pending, (state) => {
             state.loading = true;
@@ -589,11 +614,23 @@ const serviceSlice = createSlice({
         builder.addCase(confirmServiceRequest.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(confirmServiceRequest.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
+        });
+        builder.addCase(getMerchantCategory.pending, (state) => {
+            state.loadingFetchMerchantCategories = true;
+        });
+        builder.addCase(getMerchantCategory.fulfilled, (state, action: PayloadAction<any>) => {
+            state.loadingFetchMerchantCategories = false;
+            state.successFetchMerchantCategories = true;
+            state.merchantCategories = action.payload.data;
+        });
+        builder.addCase(getMerchantCategory.rejected, (state, action: PayloadAction<any>) => {
+            state.loadingFetchMerchantCategories = false;
+            state.errorFetchMerchantCategories = action.payload?.message;
         });
     }
 })

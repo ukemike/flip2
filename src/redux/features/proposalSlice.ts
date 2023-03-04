@@ -189,11 +189,11 @@ const proposalSlice = createSlice({
         builder.addCase(createProposal.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(createProposal.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
         builder.addCase(updateProposal.pending, (state) => {
             state.loading = true;
@@ -201,11 +201,11 @@ const proposalSlice = createSlice({
         builder.addCase(updateProposal.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(updateProposal.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
         builder.addCase(withdrawProposal.pending, (state) => {
             state.loading = true;
@@ -213,11 +213,11 @@ const proposalSlice = createSlice({
         builder.addCase(withdrawProposal.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(withdrawProposal.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
         builder.addCase(getProposalByJob.pending, (state) => {
             state.loadingFetctProposals = true;
@@ -238,11 +238,11 @@ const proposalSlice = createSlice({
         builder.addCase(acceptProposal.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(acceptProposal.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
         builder.addCase(rejectProposal.pending, (state) => {
             state.loading = true;
@@ -250,11 +250,11 @@ const proposalSlice = createSlice({
         builder.addCase(rejectProposal.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(rejectProposal.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
         builder.addCase(sendReview.pending, (state) => {
             state.loading = true;
@@ -262,11 +262,11 @@ const proposalSlice = createSlice({
         builder.addCase(sendReview.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(sendReview.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
 
     }

@@ -134,12 +134,12 @@ export const authSlice = createSlice({
                 state.success = true;
                 state.token = action.payload.token;
                 state.user = action.payload.data;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
                 state.loading = false;
             })
             .addCase(signUp.rejected, (state, action: PayloadAction<any>) => {
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
                 state.loading = false;
             })
             .addCase(signIn.pending, (state) => {
@@ -150,12 +150,12 @@ export const authSlice = createSlice({
                 state.success = true;
                 state.token = action.payload.token;
                 state.user = action.payload.data;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
                 state.loading = false;
             })
             .addCase(signIn.rejected, (state, action: PayloadAction<any>) => {
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
                 state.loading = false;
             })
             .addCase(verifyEmail.pending, (state) => {
@@ -164,12 +164,12 @@ export const authSlice = createSlice({
             })
             .addCase(verifyEmail.fulfilled, (state, action: PayloadAction<any>) => {
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
                 state.loading = false;
             })
             .addCase(verifyEmail.rejected, (state, action: PayloadAction<any>) => {
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
                 state.loading = false;
             })
     }

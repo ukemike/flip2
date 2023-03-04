@@ -172,9 +172,12 @@ export const removeProductImage = createAsyncThunk(
 
 export const getAllProducts = createAsyncThunk(
     'product/getAllProducts',
-    async (thunkAPI: any) => {
+    async (data: any, thunkAPI: any) => {
+        const { search, priceRange, discountPercentage, freeDelivery, byMerchant, category } = data;
         try {
-            const response = await axios.get(`${baseApi}flip/product/all-products`);
+            const response = await axios.get(`
+             ${baseApi}flip/product/all-products?search=${search}&category=${category}&priceRange=${priceRange}&discountPercentage=${discountPercentage}&freeDelivery=${freeDelivery}&byMerchant=${byMerchant}
+            `);
             return response.data;
         } catch (error: any) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -358,11 +361,11 @@ const productSlice = createSlice({
         builder.addCase(createProduct.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(createProduct.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(getMyProducts.pending, (state) => {
             state.loadingFetchProducts = true;
@@ -374,7 +377,7 @@ const productSlice = createSlice({
         })
         builder.addCase(getMyProducts.rejected, (state, action: PayloadAction<any>) => {
             state.loadingFetchProducts = false;
-            state.errorFetchProducts = action.payload.message;
+            state.errorFetchProducts = action.payload?.message;
         })
         builder.addCase(updateProduct.pending, (state) => {
             state.loading = true;
@@ -382,11 +385,11 @@ const productSlice = createSlice({
         builder.addCase(updateProduct.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(updateProduct.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(deactivateProduct.pending, (state) => {
             state.loadingActivateProductDeactivateProduct = true;
@@ -394,11 +397,11 @@ const productSlice = createSlice({
         builder.addCase(deactivateProduct.fulfilled, (state, action: PayloadAction<any>) => {
             state.loadingActivateProductDeactivateProduct = false;
             state.successActivateProductDeactivateProduct = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(deactivateProduct.rejected, (state, action: PayloadAction<any>) => {
             state.loadingActivateProductDeactivateProduct = false;
-            state.errorActivateProductDeactivateProduct = action.payload.message;
+            state.errorActivateProductDeactivateProduct = action.payload?.message;
         })
         builder.addCase(activateProduct.pending, (state) => {
             state.loadingActivateProductDeactivateProduct = true;
@@ -406,11 +409,11 @@ const productSlice = createSlice({
         builder.addCase(activateProduct.fulfilled, (state, action: PayloadAction<any>) => {
             state.loadingActivateProductDeactivateProduct = false;
             state.successActivateProductDeactivateProduct = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(activateProduct.rejected, (state, action: PayloadAction<any>) => {
             state.loadingActivateProductDeactivateProduct = false;
-            state.errorActivateProductDeactivateProduct = action.payload.message;
+            state.errorActivateProductDeactivateProduct = action.payload?.message;
         })
         builder.addCase(addProductImages.pending, (state) => {
             state.loading = true;
@@ -418,11 +421,11 @@ const productSlice = createSlice({
         builder.addCase(addProductImages.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(addProductImages.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(addProductSpecifications.pending, (state) => {
             state.loading = true;
@@ -430,11 +433,11 @@ const productSlice = createSlice({
         builder.addCase(addProductSpecifications.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(addProductSpecifications.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(addProductFeatures.pending, (state) => {
             state.loading = true;
@@ -442,11 +445,11 @@ const productSlice = createSlice({
         builder.addCase(addProductFeatures.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(addProductFeatures.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(removeProductSpecification.pending, (state) => {
             state.loading = true;
@@ -454,11 +457,11 @@ const productSlice = createSlice({
         builder.addCase(removeProductSpecification.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(removeProductSpecification.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(removeProductImage.pending, (state) => {
             state.loading = true;
@@ -466,11 +469,11 @@ const productSlice = createSlice({
         builder.addCase(removeProductImage.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(removeProductImage.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(getAllProducts.pending, (state) => {
             state.loadingFetchProducts = true;

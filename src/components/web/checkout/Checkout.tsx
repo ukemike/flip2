@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import Image from 'next/image'
-import { CheckGrey, CheckGreen, Money, Card, Transfer, Standard, Gen } from '../../../assets'
+import { CheckGrey, CheckGreen, Money, Card, Transfer, Standard } from '../../../assets'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -44,25 +44,25 @@ const Checkout = (props: any) => {
         if (props.cartItems) {
             let total = 0
             props.cartItems.map((item: any) => {
-                total = total + item.numberOfItems
+                total = total + +item.numberOfItems
             })
             setTotalItems(total)
 
             let price = 0
             props.cartItems.map((item: any) => {
-                price = price + (item.numberOfItems * item.product.product.discount.discountAmount)
+                price = price + (+item.numberOfItems * +item.product.product.discount.discountAmount)
             })
             setTotalPrice(price)
 
             let shipping = 0
             props.cartItems.map((item: any) => {
-                shipping = shipping + item.product.product.delivery.shippingFee
+                shipping = +shipping + +item.product.product.delivery.shippingFee
             })
             setShippingFee(shipping)
 
             let amount = 0
             props.cartItems.map((item: any) => {
-                amount = amount + (item.numberOfItems * item.product.product.discount.discountAmount) + item.product.product.delivery.shippingFee
+                amount = amount + (+item.numberOfItems * +item.product.product.discount.discountAmount) + +item.product.product.delivery.shippingFee
             })
             setTotalAmount(amount)
             setCart(

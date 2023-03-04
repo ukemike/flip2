@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { Laptop } from '../../../assets'
+import { Banner } from '../../../assets'
 const Banner2 = () => {
     return (
         <>
@@ -20,7 +20,7 @@ const Banner2 = () => {
                     </div>
 
                     <div className="relative">
-                        <Image src={Laptop} alt="featured product" />
+                        <Image src={Banner} alt="featured product" />
                     </div>
 
                 </div>

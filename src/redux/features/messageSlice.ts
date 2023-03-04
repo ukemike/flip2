@@ -128,11 +128,11 @@ const messageSlice = createSlice({
         builder.addCase(sendMesage.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(sendMesage.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         });
     }
 })

@@ -544,12 +544,12 @@ export const accountSlice = createSlice({
             .addCase(updateBusinessMerchantProfile.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(updateBusinessMerchantProfile.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(updatePersonalMerchantProfile.pending, (state) => {
                 state.loading = true;
@@ -557,12 +557,12 @@ export const accountSlice = createSlice({
             .addCase(updatePersonalMerchantProfile.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(updatePersonalMerchantProfile.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(updateConsumerProfile.pending, (state) => {
                 state.loading = true;
@@ -570,12 +570,12 @@ export const accountSlice = createSlice({
             .addCase(updateConsumerProfile.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(updateConsumerProfile.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(addMerchantSkills.pending, (state) => {
                 state.loading = true;
@@ -583,12 +583,12 @@ export const accountSlice = createSlice({
             .addCase(addMerchantSkills.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(addMerchantSkills.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(addMerchantLanguages.pending, (state) => {
                 state.loading = true;
@@ -596,12 +596,12 @@ export const accountSlice = createSlice({
             .addCase(addMerchantLanguages.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(addMerchantLanguages.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(addMerchantWorkHistory.pending, (state) => {
                 state.loading = true;
@@ -609,12 +609,12 @@ export const accountSlice = createSlice({
             .addCase(addMerchantWorkHistory.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(addMerchantWorkHistory.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(addMerchantEducation.pending, (state) => {
                 state.loading = true;
@@ -622,12 +622,12 @@ export const accountSlice = createSlice({
             .addCase(addMerchantEducation.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(addMerchantEducation.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(addMerchantProjects.pending, (state) => {
                 state.loading = true;
@@ -635,12 +635,12 @@ export const accountSlice = createSlice({
             .addCase(addMerchantProjects.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(addMerchantProjects.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(removeMerchantEducation.pending, (state) => {
                 state.loading = true;
@@ -648,12 +648,12 @@ export const accountSlice = createSlice({
             .addCase(removeMerchantEducation.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(removeMerchantEducation.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(editMerchantEducation.pending, (state) => {
                 state.loading = true;
@@ -661,12 +661,12 @@ export const accountSlice = createSlice({
             .addCase(editMerchantEducation.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(editMerchantEducation.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(removeMerchantWorkHistory.pending, (state) => {
                 state.loading = true;
@@ -674,12 +674,12 @@ export const accountSlice = createSlice({
             .addCase(removeMerchantWorkHistory.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(removeMerchantWorkHistory.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(editMerchantWorkHistory.pending, (state) => {
                 state.loading = true;
@@ -687,12 +687,12 @@ export const accountSlice = createSlice({
             .addCase(editMerchantWorkHistory.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(editMerchantWorkHistory.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(removeMerchantProjects.pending, (state) => {
                 state.loading = true;
@@ -700,12 +700,12 @@ export const accountSlice = createSlice({
             .addCase(removeMerchantProjects.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(removeMerchantProjects.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(editMerchantProjects.pending, (state) => {
                 state.loading = true;
@@ -713,12 +713,12 @@ export const accountSlice = createSlice({
             .addCase(editMerchantProjects.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(editMerchantProjects.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(removeMerchantSkills.pending, (state) => {
                 state.loading = true;
@@ -726,12 +726,12 @@ export const accountSlice = createSlice({
             .addCase(removeMerchantSkills.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(removeMerchantSkills.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(editMerchantSkills.pending, (state) => {
                 state.loading = true;
@@ -739,12 +739,12 @@ export const accountSlice = createSlice({
             .addCase(editMerchantSkills.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(editMerchantSkills.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(removeMerchantLanguages.pending, (state) => {
                 state.loading = true;
@@ -752,12 +752,12 @@ export const accountSlice = createSlice({
             .addCase(removeMerchantLanguages.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(removeMerchantLanguages.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(editMerchantLanguages.pending, (state) => {
                 state.loading = true;
@@ -765,12 +765,12 @@ export const accountSlice = createSlice({
             .addCase(editMerchantLanguages.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(editMerchantLanguages.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(updateBankDetails.pending, (state) => {
                 state.loading = true;
@@ -778,12 +778,12 @@ export const accountSlice = createSlice({
             .addCase(updateBankDetails.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(updateBankDetails.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(getTransactions.pending, (state) => {
                 state.loadingFetchTransactions = true;
@@ -817,12 +817,12 @@ export const accountSlice = createSlice({
             .addCase(topUpWallet.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(topUpWallet.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(requestWithdrawal.pending, (state) => {
                 state.loading = true;
@@ -830,12 +830,12 @@ export const accountSlice = createSlice({
             .addCase(requestWithdrawal.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(requestWithdrawal.rejected, (state, action: PayloadAction<any>) => {
                 state.loading = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
             .addCase(updateProfilePicture.pending, (state) => {
                 state.loadingUpdateProfilePicture = true;
@@ -843,12 +843,12 @@ export const accountSlice = createSlice({
             .addCase(updateProfilePicture.fulfilled, (state, action: PayloadAction<any>) => {
                 state.loadingUpdateProfilePicture = false;
                 state.success = true;
-                state.message = action.payload.message;
+                state.message = action.payload?.message;
             })
             .addCase(updateProfilePicture.rejected, (state, action: PayloadAction<any>) => {
                 state.loadingUpdateProfilePicture = false;
                 state.success = false;
-                state.error = action.payload.message;
+                state.error = action.payload?.message;
             })
 
             .addCase(getCountries.pending, (state) => {
@@ -862,7 +862,7 @@ export const accountSlice = createSlice({
             .addCase(getCountries.rejected, (state, action: PayloadAction<any>) => {
                 state.loadingFetchCountriesStatesLgas = false;
                 state.successFetchCountriesStatesLgas = false;
-                state.errorFetchCountriesStatesLgas = action.payload.message;
+                state.errorFetchCountriesStatesLgas = action.payload?.message;
             })
 
             .addCase(getStates.pending, (state) => {
@@ -876,7 +876,7 @@ export const accountSlice = createSlice({
             .addCase(getStates.rejected, (state, action: PayloadAction<any>) => {
                 state.loadingFetchCountriesStatesLgas = false;
                 state.successFetchCountriesStatesLgas = false;
-                state.errorFetchCountriesStatesLgas = action.payload.message;
+                state.errorFetchCountriesStatesLgas = action.payload?.message;
             })
 
             .addCase(getLgas.pending, (state) => {
@@ -890,7 +890,7 @@ export const accountSlice = createSlice({
             .addCase(getLgas.rejected, (state, action: PayloadAction<any>) => {
                 state.loadingFetchCountriesStatesLgas = false;
                 state.successFetchCountriesStatesLgas = false;
-                state.errorFetchCountriesStatesLgas = action.payload.message;
+                state.errorFetchCountriesStatesLgas = action.payload?.message;
             })
 
 

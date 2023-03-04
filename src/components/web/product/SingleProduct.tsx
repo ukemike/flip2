@@ -90,6 +90,8 @@ const SingleProduct = (props: any) => {
                 setNumberOfItems(cartItem?.numberOfItems)
             } else {
                 setIsAddedToCart(false)
+                setNumberOfItems(1)
+                setCartID('')
             }
         }
     }, [props.cartItems, props.product])
@@ -258,9 +260,9 @@ const SingleProduct = (props: any) => {
                             <div className="flex flex-col gap-4 bg-gray17 p-4 mb-4">
 
                                 <div>
-                                    <p className='font-medium text-xs text-gray16 mb-3'>Key Features:</p>
+                                    <p className='font-medium text-sm text-gray16 mb-3'>Key Features:</p>
 
-                                    <div className='font-light text-xs text-gray18'>
+                                    <div className='font-light text-sm text-gray18'>
 
                                         <ul className="list-decimal ml-4">
                                             {props.product.product.features && props.product.product.features.map((feature: any, index: number) => (
@@ -272,9 +274,9 @@ const SingleProduct = (props: any) => {
                                 </div>
 
                                 <div>
-                                    <p className='font-medium text-xs text-gray16 mb-3'>Specifications:</p>
+                                    <p className='font-medium text-sm text-gray16 mb-3'>Specifications:</p>
 
-                                    <div className='font-light text-xs text-gray18'>
+                                    <div className='font-light text-sm text-gray18'>
 
                                         <ul className="list-decimal ml-4">
                                             {props.product.product.specifications && props.product.product.specifications.map((specification: any, index: number) => (

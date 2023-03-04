@@ -36,7 +36,7 @@ const Nav = () => {
         if (cartItems) {
             let total = 0
             cartItems.map((item: any) => {
-                total = total + item.numberOfItems
+                total = total + +item.numberOfItems
             })
             setTotalCart(total)
         }
@@ -219,13 +219,13 @@ const Nav = () => {
                                 }}
                             >
                                 <div className="flex justify-center items-center relative">
-                                    <input type="text" className="w-full h-[45px] border focus:outline-none focus:border-primary3 border-primary3 rounded-[30px] pl-10 relative text-base font-light" placeholder={`Search ${searchBy.split(' ')[1]}`}
+                                    <input type="text" className="w-full h-[40px] border focus:outline-none focus:border-primary3 border-primary3 rounded-[20px] pl-10 relative text-base font-light" placeholder={`Search ${searchBy.split(' ')[1]}`}
                                         value={searchTerm || ''}
                                         onChange={(e) => {
                                             setSearchTerm(e.target.value)
                                         }}
                                     />
-                                    <button type='button' className={`w-[90px] h-[45px]  text-white rounded-[30px] 
+                                    <button type='button' className={`w-[90px] h-[40px]  text-white rounded-[20px] 
                                     absolute right-0 top-0 text-sm font-medium flex items-center justify-center gap-2 ${showSearchBy ? 'bg-primary6' : 'bg-primary4'}`}
                                         onClick={
                                             () => {
@@ -239,7 +239,7 @@ const Nav = () => {
                                         <Image src={ArrowWhiteDown} alt="ArrowWhiteDown" />
                                     </button>
                                     <div className='absolute top-0 left-1 flex flex-row items-center justify-center h-full w-10'>
-                                        <Image src={Search2} alt="Search" />
+                                        <Image src={Search2} alt="Search" width={20} height={20} />
                                     </div>
 
                                     {showSearchBy && (
@@ -289,13 +289,13 @@ const Nav = () => {
                                 }}
                             >
                                 <div className="flex justify-center items-center relative">
-                                    <input type="text" className="w-full h-[45px] border focus:outline-none focus:border-primary3 border-primary3 rounded-[30px] pl-10 relative text-base font-light" placeholder={`Search ${searchBy.split(' ')[1]}`}
+                                    <input type="text" className="w-full h-[40px] border focus:outline-none focus:border-primary3 border-primary3 rounded-[20px] pl-10 relative text-base font-light" placeholder={`Search ${searchBy.split(' ')[1]}`}
                                         value={searchTerm || ''}
                                         onChange={(e) => {
                                             setSearchTerm(e.target.value)
                                         }}
                                     />
-                                    <button type='button' className={`w-[150px] h-[45px]  text-white rounded-[30px] 
+                                    <button type='button' className={`w-[150px] h-[40px]  text-white rounded-[20px] 
                                     absolute right-0 top-0 text-sm font-medium flex items-center justify-center gap-2 ${showSearchBy ? 'bg-primary6' : 'bg-primary4'}`}
                                         onClick={
                                             () => {
@@ -307,7 +307,7 @@ const Nav = () => {
                                         <Image src={ArrowWhiteDown} alt="ArrowWhiteDown" />
                                     </button>
                                     <div className='absolute top-0 left-1 flex flex-row items-center justify-center h-full w-10'>
-                                        <Image src={Search2} alt="Search" />
+                                        <Image src={Search2} alt="Search" width={20} height={20} />
                                     </div>
 
                                     {showSearchBy && (

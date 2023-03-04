@@ -172,11 +172,11 @@ const jobSlice = createSlice({
         builder.addCase(createJob.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(createJob.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(updateJob.pending, (state) => {
             state.loading = true;
@@ -184,11 +184,11 @@ const jobSlice = createSlice({
         builder.addCase(updateJob.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(updateJob.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(deactivateJob.pending, (state) => {
             state.loading = true;
@@ -196,11 +196,11 @@ const jobSlice = createSlice({
         builder.addCase(deactivateJob.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(deactivateJob.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
         builder.addCase(activateJob.pending, (state) => {
             state.loading = true;
@@ -208,11 +208,11 @@ const jobSlice = createSlice({
         builder.addCase(activateJob.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         })
         builder.addCase(activateJob.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
         })
     }
 })

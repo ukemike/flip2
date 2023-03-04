@@ -129,11 +129,11 @@ export const cartSlice = createSlice({
         builder.addCase(addToCart.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(addToCart.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message
+            state.error = action.payload?.message
         });
 
         builder.addCase(updateCartAdd.pending, (state) => {
@@ -142,11 +142,11 @@ export const cartSlice = createSlice({
         builder.addCase(updateCartAdd.fulfilled, (state, action: PayloadAction<any>) => {
             state.loadingUpdateCart = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(updateCartAdd.rejected, (state, action: PayloadAction<any>) => {
             state.loadingUpdateCart = false;
-            state.error = action.payload.message
+            state.error = action.payload?.message
         });
         builder.addCase(updateCartRemove.pending, (state) => {
             state.loadingUpdateCart = true;
@@ -154,11 +154,11 @@ export const cartSlice = createSlice({
         builder.addCase(updateCartRemove.fulfilled, (state, action: PayloadAction<any>) => {
             state.loadingUpdateCart = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(updateCartRemove.rejected, (state, action: PayloadAction<any>) => {
             state.loadingUpdateCart = false;
-            state.error = action.payload.message
+            state.error = action.payload?.message
         });
 
         builder.addCase(removeFromCart.pending, (state) => {
@@ -167,11 +167,11 @@ export const cartSlice = createSlice({
         builder.addCase(removeFromCart.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.success = true;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
         });
         builder.addCase(removeFromCart.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message
+            state.error = action.payload?.message
         });
 
         builder.addCase(getCart.pending, (state) => {

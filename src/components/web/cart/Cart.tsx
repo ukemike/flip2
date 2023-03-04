@@ -19,13 +19,13 @@ const Cart = ({ cartItems, cartLoading, removeFromCart, updateCartRemove, update
         if (cartItems) {
             let total = 0
             cartItems.map((item: any) => {
-                total = total + item.numberOfItems
+                total = total + +item.numberOfItems
             })
             setTotalItems(total)
 
             let price = 0
             cartItems.map((item: any) => {
-                price = price + (item.numberOfItems * item.product.product.discount.discountAmount)
+                price = price + (+item.numberOfItems * +item.product.product.discount.discountAmount)
             })
             setTotalPrice(price)
         }

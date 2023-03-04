@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 import { shortenText, getPostedDate, formatDate } from '../../../utils/functions'
-import { Search1, CloseDraw, Search2, PaginationNext, PaginationPrev } from '../../../assets'
+import { Empty, CloseDraw, Search2, PaginationNext, PaginationPrev } from '../../../assets'
 import Image from 'next/image'
 import { useSearchAndPagination } from '../../../services/paginationHook'
 import Loader from '../loader/Loader'
@@ -245,7 +245,7 @@ const Jobs = (props: any) => {
 
                     {currentItems && currentItems.length === 0 && (
                         <div className="flex flex-col items-center justify-center mt-20">
-                            <Image src={Search1} alt="search" />
+                             <Image src={Empty} alt="" width={100} height={100} />
                             <p className="text-gray11 text-lg mt-5">No jobs found</p>
                         </div>
                     )}

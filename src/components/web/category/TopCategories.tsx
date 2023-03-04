@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Laptop } from '../../../assets'
 import Carousel from "react-multi-carousel";
 
 const TopCategoris = ({ productsCategory }: { productsCategory: any }) => {

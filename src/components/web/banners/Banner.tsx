@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
-import { Menu, ArrowRight, Banner1, Banner2, Chair, Airpod } from '../../../assets'
+import { Menu, ArrowRight, Banner1, Banner2, Chair } from '../../../assets'
 import Image from 'next/image'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -98,7 +98,7 @@ const Banner = ({ productsCategory, products }: { productsCategory: any, product
                     </div>
                 </div>
 
-                <div className="w-full flex flex-row gap-4 h-96 md:w-[55%]">
+                <div className="w-full flex flex-row gap-4 md:h-96 md:w-[55%]">
                     <Carousel
                         responsive={responsive}
                         infinite={true}

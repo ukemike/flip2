@@ -1208,7 +1208,7 @@ const Product = (props: any) => {
                 {props.loading ? (
                   <button className="filled-btn flex items-center justify-center gap-3 w-full" disabled>
                     <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
-                    Uploading...
+                    Submitting...
                   </button>
                 ) : (
                   <button className="filled-btn w-32" onClick={handleAddSpecification}>

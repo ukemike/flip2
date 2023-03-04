@@ -1,6 +1,4 @@
 import React from 'react'
-import { User1, Verify } from '../../../assets'
-import { useAppSelector } from '../../../redux/hooks'
 import { useEffect, useState } from 'react'
 
 const BankDetails = (props: any) => {

@@ -12,7 +12,6 @@ const NewsLetter = () => {
                     <input type="text" className="w-[400px] h-[50px] border focus:outline-none focus:border-primary3 border-primary3 rounded-l-[10px] pl-4 font-light" placeholder="Enter your email address" />
                     <button className="filled-btn w-[150px] h-[50px] rounded-r-[10px] rounded-l-none">
                         Subscribe
-                        <span className="absolute w-3 bottom-0 bg-primary4 inset-y-0 left-0"></span>
                     </button>
                 </div>
             </div>

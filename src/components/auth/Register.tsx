@@ -113,8 +113,8 @@ const RegisterComponent = (props: any) => {
                                     <label htmlFor="category">Category</label>
                                     <select {...register("category", { required: true })}>
                                         <option disabled>Select Category</option>
-                                        {props.servicesCategories && props.servicesCategories.map((category: any, index: number) => (
-                                            <option value={category.categoryID} key={index}>{category.name}</option>
+                                        {props.merchantCategories && props.merchantCategories.map((category: any, index: number) => (
+                                            <option value={category.categoryID} key={index}>{category.categoryName}</option>
                                         ))}
                                     </select>
                                 </div>

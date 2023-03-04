@@ -132,12 +132,12 @@ const orderSlice = createSlice({
         builder.addCase(createOrder.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
             state.order = action.payload;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
             state.success = true;
         })
         builder.addCase(createOrder.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
             state.success = false;
         })
         builder.addCase(getOrdersByMe.pending, (state) => {
@@ -171,12 +171,12 @@ const orderSlice = createSlice({
         })
         builder.addCase(acceptOrder.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
             state.success = true;
         })
         builder.addCase(acceptOrder.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
             state.success = false;
         })
         builder.addCase(rejectOrder.pending, (state) => {
@@ -184,12 +184,12 @@ const orderSlice = createSlice({
         })
         builder.addCase(rejectOrder.fulfilled, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.message = action.payload.message;
+            state.message = action.payload?.message;
             state.success = true;
         })
         builder.addCase(rejectOrder.rejected, (state, action: PayloadAction<any>) => {
             state.loading = false;
-            state.error = action.payload.message;
+            state.error = action.payload?.message;
             state.success = false;
         })
     }
