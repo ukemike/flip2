@@ -146,7 +146,7 @@ const Wallet = (props: any) => {
                         <div className="card rounded-[12px]">
                             <div className="flex flex-row items-center justify-between">
                                 <div>
-                                    <h3 className="text-[32px] font-semibold text-black-100 mb-1">₦{formatAmount(props.walletBalance.escrowBalance)}</h3>
+                                    <h3 className="text-[32px] font-semibold text-black-100 mb-1">₦{formatAmount(props.walletBalance.escrowBalance || '0')}</h3>
                                     <h5 className="text-xl font-light text-gray39">Escrow Balance</h5>
                                 </div>
 
@@ -160,7 +160,7 @@ const Wallet = (props: any) => {
                         <div className="card rounded-[12px]">
                             <div className="flex flex-row items-center justify-between">
                                 <div>
-                                    <h3 className="text-[32px] font-semibold text-black-100 mb-1">₦{formatAmount(props.walletBalance.withdrawableBalance)}</h3>
+                                    <h3 className="text-[32px] font-semibold text-black-100 mb-1">₦{formatAmount(props.walletBalance.withdrawableBalance || '0')}</h3>
                                     <h5 className="text-xl font-light text-gray39">Main Balance</h5>
                                 </div>
 

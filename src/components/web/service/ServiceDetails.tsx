@@ -40,12 +40,15 @@ const ServiceDetails = (props: any) => {
                         <ServiceInfo
                             pricing={props.service.service.pricing}
                             fullName={props.service.merchant.fullName}
+                            userID={props.service.merchant.userID}
                             image={props.service.merchant.image}
                             serviceName={props.service.service.serviceName}
                             location={props.service.service.location}
                             description={props.service.service.description}
                             loading={props.loading}
                             handleRequestService={handleRequestService}
+                            sendMesage={props.sendMesage}
+                            loadingChatMessage={props.loadingChatMessage}
                         />
 
                     </div>

@@ -75,7 +75,7 @@ export const useSearchAndPagination = (items: any[], itemsPerPage: number) => {
                 item.jobScope.toLowerCase().includes(e.target.value.toLowerCase()) ||
                 item.budget.toLowerCase().includes(e.target.value.toLowerCase()) ||
                 item.jobDuration.toLowerCase().includes(e.target.value.toLowerCase()) ||
-                item.skillsNeeded.map((skill: any) => skill.skill.toLowerCase()).includes(e.target.value.toLowerCase())
+                item.skillsNeeded.map((skill: any) => skill?.skill?.toLowerCase()).includes(e.target.value.toLowerCase())
         }))
     }
 

@@ -64,6 +64,7 @@ module.exports = {
         red2: "#F04438",
         red3: "#D92D20",
         red4: "#FF3A29",
+        red5: "#EB0E0E",
         backg: "#EEF8FF",
         backg2: "#F6F6F6",
         backg3: "#e5f2fa",

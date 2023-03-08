@@ -10,77 +10,96 @@ import SearchProductComponent from '../../src/components/web/product/SearchProdu
 import { useRouter } from "next/router";
 import { getAllProducts, getProductsCategory } from '../../src/redux/features/productSlice'
 import { useAppSelector, useAppDispatch } from '../../src/redux/hooks'
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { addToCart, getCart, updateCartAdd, updateCartRemove, clearError, clearMessage } from '../../src/redux/features/cartSlice'
 import Toast from '../../src/components/toast/Toast'
 
-const SearchProduct: NextPage = (props: any) => {
+const SearchProduct: NextPage = () => {
     const { query } = useRouter() as any
     const dispatch = useAppDispatch()
-    const [filteredProducts, setfFilteredProducts] = useState([] as any)
+
+    const [search, setSearch] = useState(typeof window !== 'undefined' && query.search || '')
+    const [category, setCategory] = useState(typeof window !== 'undefined' && query.category || '')
+    const [priceRange, setPriceRange] = useState(typeof window !== 'undefined' && query.priceRange || '')
+    const [discountPercentage, setDiscountPercentage] = useState(typeof window !== 'undefined' && query.discountPercentage || '')
+    const [freeDelivery, setFreeDelivery] = useState(typeof window !== 'undefined' && query.freeDelivery || '')
+    const [byMerchant, setByMerchant] = useState(typeof window !== 'undefined' && query.byMerchant || '')
 
     const { token } = useAppSelector((state) => state.auth)
 
     const { loading, products, productsCategory, loadingFetchProducts } = useAppSelector((state) => state.product)
     const { success: cartSuccess, message: cartMessage, error: cartError, loading: cartLoading, cartItems, loadingUpdateCart } = useAppSelector(state => state.cart)
 
+    // set search, category, priceRange, discountPercentage, freeDelivery, byMerchant from query
     useEffect(() => {
-        dispatch(getAllProducts(token))
-        dispatch(getProductsCategory(token))
-    }, [dispatch, token, query])
-
-    useEffect(() => {
-        if (products.length > 0 && query.search) {
-            setfFilteredProducts(products.filter((item: any) => {
-                return item.product.name.toLowerCase().includes(query.search.toLowerCase()) ||
-                    item.category.name.toLowerCase().includes(query.search.toLowerCase()) ||
-                    item.product.brand.toLowerCase().includes(query.search.toLowerCase());
-            }))
-        } else {
-            setfFilteredProducts([] as any)
+        if (typeof window !== 'undefined') {
+            if (query) {
+                setSearch(query.search || '')
+                setCategory(query.category || '')
+                setPriceRange(query.priceRange || '')
+                setDiscountPercentage(query.discountPercentage || '')
+                setFreeDelivery(query.freeDelivery || '')
+                setByMerchant(query.byMerchant || '')
+            } else {
+                setSearch('')
+                setCategory('')
+                setPriceRange('')
+                setDiscountPercentage('')
+                setFreeDelivery('')
+                setByMerchant('')
+            }
         }
-    }, [products, query])
+    }, [query])
 
+    // fetch products and category
+    const fetchProductsAndCategory = useCallback(() => {
+        if (typeof window !== 'undefined' && query && query.search) {
+            dispatch(getAllProducts({ search, category, priceRange, discountPercentage, freeDelivery, byMerchant }))
+            dispatch(getProductsCategory(token))
+        }
+    }, [dispatch, token, query, search, category, priceRange, discountPercentage, freeDelivery, byMerchant])
 
+    useEffect(() => {
+        fetchProductsAndCategory()
+    }, [fetchProductsAndCategory])
+
+    // clear error and success message after 3 seconds
     useEffect(() => {
         if (cartError) {
             setTimeout(() => {
                 dispatch(clearError())
             }, 3000);
         }
-        if (cartSuccess) {
-            setTimeout(() => {
-                dispatch(clearMessage())
-            }, 3000);
-        }
-    }, [cartSuccess, cartError, cartMessage, dispatch, token])
+    }, [cartError, dispatch])
 
     useEffect(() => {
         if (cartSuccess) {
             setTimeout(() => {
+                dispatch(clearMessage())
                 dispatch(getCart(token))
-            }, 100);
+            }, 1000);
         }
     }, [cartSuccess, dispatch, token])
 
-    const handleAddToCart = (data: any) => {
+    // add to cart
+    const handleAddToCart = useCallback((data: any) => {
         dispatch(addToCart(data))
-    }
+    }, [dispatch])
 
-    const handleUpdateCart = (data: any) => {
+    // update cart add
+    const handleUpdateCart = useCallback((data: any) => {
         dispatch(updateCartAdd(data))
-    }
+    }, [dispatch])
 
-    const handleUpdateCartRemove = (data: any) => {
+    // update cart remove
+    const handleUpdateCartRemove = useCallback((data: any) => {
         dispatch(updateCartRemove(data))
-    }
-
-
+    }, [dispatch])
 
     return (
         <div>
             <Head>
-                <title>Cue |  The artisan for Digital and Offline Space</title>
+                <title>Flip</title>
                 <meta name="description" content="Generated by create next app" />
                 <link rel="icon" href="/flip-favicon.png" />
             </Head>
@@ -99,7 +118,7 @@ const SearchProduct: NextPage = (props: any) => {
 
                     <SearchProductComponent
                         loading={loading}
-                        filteredProducts={filteredProducts}
+                        filteredProducts={products}
                         query={query}
                         loadingFetchProducts={loadingFetchProducts}
                         productsCategory={productsCategory}

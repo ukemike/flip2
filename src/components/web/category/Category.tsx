@@ -1,5 +1,6 @@
 import React from 'react'
 import Carousel from "react-multi-carousel";
+import 'react-multi-carousel/lib/styles.css';
 import ProductCard from '../../ui/ProductCard';
 import ProductCard2 from '../../ui/ProductCard/ProductCard2';
 import { useRouter } from "next/router";
@@ -124,6 +125,7 @@ const Category = (props: any) => {
                     >
                         {props.products && props.products.map((product: any, index: number) => (
                             <ProductCard
+                                key={index}
                                 name={product.product.name}
                                 productID={product.product.productID}
                                 slug={product.product.slug}
@@ -131,7 +133,6 @@ const Category = (props: any) => {
                                 discountAmount={product.product.discount.discountAmount}
                                 price={product.product.price}
                                 images={product.product.images}
-                                key={index}
                                 backgroundColor={'backg2'}
                             />
                         ))}
@@ -139,92 +140,91 @@ const Category = (props: any) => {
                     </Carousel>
                 </div>
 
-                {props.products && props.products.length > 0 ?
-                    <div className="flex flex-col-reverse md:flex-row gap-5 pt-6">
 
-                        {/* filter */}
-                        <div className="hidden md:block md:w-1/4">
-                            <ProductFilter
-                                productsCategory={props.productsCategory}
-                                query={props.query}
-                            />
-                        </div>
+                <div className="flex flex-col-reverse md:flex-row gap-5 pt-6">
 
-                        {/* products */}
+                    {/* filter */}
+                    <div className="hidden md:block md:w-1/4">
+                        <ProductFilter
+                            productsCategory={props.productsCategory}
+                            query={props.query}
+                        />
+                    </div>
+
+                    {/* products */}
+                    {props.products && props.products.length > 0 ?
                         <div className="w-full md:w-3/4">
                             <div className='border-[1px] border-gray23 rounded-[10px] px-2 py-3'>
                                 {currentItems && currentItems.length > 0 ? (
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                                         {currentItems && currentItems.map((product: any, index: number) => (
-                                            <>
-                                                <ProductCard2
-                                                    name={product.product.name}
-                                                    productID={product.product.productID}
-                                                    slug={product.product.slug}
-                                                    isDiscountAvailable={product.product.discount.isDiscountAvailable}
-                                                    discountAmount={product.product.discount.discountAmount}
-                                                    price={product.product.price}
-                                                    images={product.product.images}
-                                                    averageRating={product.averageRating}
-                                                    key={index}
-                                                    backgroundColor={'backg2'}
+                                            <ProductCard2
+                                                key={index}
+                                                name={product.product.name}
+                                                productID={product.product.productID}
+                                                slug={product.product.slug}
+                                                isDiscountAvailable={product.product.discount.isDiscountAvailable}
+                                                discountAmount={product.product.discount.discountAmount}
+                                                price={product.product.price}
+                                                images={product.product.images}
+                                                averageRating={product.averageRating}
+                                                backgroundColor={'backg2'}
 
-                                                >
-                                                    {cartAndProductID && cartAndProductID.length > 0 && cartAndProductID.filter((item: any) =>
-                                                        item.productID === product.product.productID).length > 0 ? (
-                                                        <div className="flex fex-row items-center gap-3 py-4">
-                                                            <div className="flex justify-center items-center border-[1px] border-primary3 w-full h-8 rounded-[10px]">
-                                                                <div className="flex gap-6 items-center px-2">
-                                                                    <button className={cartAndProductID && cartAndProductID.length > 0 && cartAndProductID.filter((item: any) =>
-                                                                        item.productID === product.product.productID)[0].number_of_items === 1 ? "cursor-not-allowed" : "text-gray11 cursor-pointer w-2 h-2 rounded-full flex items-center justify-center p-3 hover:bg-primary3 hover:text-white"} disabled={cartAndProductID && cartAndProductID.length > 0 && cartAndProductID.filter((item: any) =>
-                                                                            item.productID === product.product.productID)[0].number_of_items === 1 ? true : false}
-                                                                        onClick={() => {
-                                                                            setCartID(cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID)
-                                                                            handleUpdateCartRemove(1, cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID)
-                                                                        }}>
-                                                                        <p className="text-base font-medium">-</p>
-                                                                    </button>
+                                            >
+                                                {cartAndProductID && cartAndProductID.length > 0 && cartAndProductID.filter((item: any) =>
+                                                    item.productID === product.product.productID).length > 0 ? (
+                                                    <div className="flex fex-row items-center gap-3 py-4">
+                                                        <div className="flex justify-center items-center border-[1px] border-primary3 w-full h-8 rounded-[10px]">
+                                                            <div className="flex gap-6 items-center px-2">
+                                                                <button className={cartAndProductID && cartAndProductID.length > 0 && cartAndProductID.filter((item: any) =>
+                                                                    item.productID === product.product.productID)[0].number_of_items === 1 ? "cursor-not-allowed" : "text-gray11 cursor-pointer w-2 h-2 rounded-full flex items-center justify-center p-3 hover:bg-primary3 hover:text-white"} disabled={cartAndProductID && cartAndProductID.length > 0 && cartAndProductID.filter((item: any) =>
+                                                                        item.productID === product.product.productID)[0].number_of_items === 1 ? true : false}
+                                                                    onClick={() => {
+                                                                        setCartID(cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID)
+                                                                        handleUpdateCartRemove(1, cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID)
+                                                                    }}>
+                                                                    <p className="text-base font-medium">-</p>
+                                                                </button>
 
-                                                                    {props.loadingUpdateCart && cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID === cartID ? (
-                                                                        <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary3"></div>
-                                                                    ) : (
-                                                                        <p className="text-sm font-medium text-gray11">
-                                                                            {cartAndProductID && cartAndProductID.length > 0 && cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].number_of_items}
-                                                                        </p>
-                                                                    )}
-
-                                                                    <button className="text-gray11 cursor-pointer w-2 h-2 rounded-full flex items-center justify-center p-3 hover:bg-primary3 hover:text-white"
-                                                                        onClick={() => {
-                                                                            setCartID(cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID)
-                                                                            handleUpdateCartAdd(1, cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID)
-                                                                        }}>
-                                                                        <p className="text-base font-medium">+</p>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    ) : (
-                                                        <div className="flex flex-row gap-3 mt-4 w-full">
-                                                            <div className="w-full">
-                                                                {props.cartLoading && product.product.productID === productID ? (
-                                                                    <button className="outline-btn">
-                                                                        <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary3"></div>
-                                                                    </button>
+                                                                {props.loadingUpdateCart && cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID === cartID ? (
+                                                                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary3"></div>
                                                                 ) : (
-                                                                    <button className="filled-btn"
-                                                                        onClick={() => {
-                                                                            setProductID(product.product.productID)
-                                                                            handleAddToCart(product.product.productID)
-                                                                        }}>
-                                                                        Add To Cart
-                                                                        <span className="absolute w-3 bottom-0 bg-primary4 inset-y-0 left-0"></span>
-                                                                    </button>
+                                                                    <p className="text-sm font-medium text-gray11">
+                                                                        {cartAndProductID && cartAndProductID.length > 0 && cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].number_of_items}
+                                                                    </p>
                                                                 )}
+
+                                                                <button className="text-gray11 cursor-pointer w-2 h-2 rounded-full flex items-center justify-center p-3 hover:bg-primary3 hover:text-white"
+                                                                    onClick={() => {
+                                                                        setCartID(cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID)
+                                                                        handleUpdateCartAdd(1, cartAndProductID.filter((item: any) => item.productID === product.product.productID)[0].cartID)
+                                                                    }}>
+                                                                    <p className="text-base font-medium">+</p>
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                    )}
-                                                </ProductCard2>
-                                            </>
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex flex-row gap-3 mt-4 w-full">
+                                                        <div className="w-full">
+                                                            {props.cartLoading && product.product.productID === productID ? (
+                                                                <button className="outline-btn">
+                                                                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-primary3"></div>
+                                                                </button>
+                                                            ) : (
+                                                                <button className="filled-btn"
+                                                                    onClick={() => {
+                                                                        setProductID(product.product.productID)
+                                                                        handleAddToCart(product.product.productID)
+                                                                    }}>
+                                                                    Add To Cart
+                                                                    <span className="absolute w-3 bottom-0 bg-primary4 inset-y-0 left-0"></span>
+                                                                </button>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </ProductCard2>
                                         ))}
                                     </div>
                                 ) : (
@@ -244,14 +244,15 @@ const Category = (props: any) => {
 
                             </div>
                         </div>
+                        :
+                        <div className='flex flex-col gap-4 items-center justify-center w-full h-full pt-4 pb-4'>
+                            <p>No products found</p>
+                            <button className='outline-btn w-48' onClick={() => router.push('/')}>Go To HomePage</button>
+                        </div>
+                    }
 
-                    </div>
-                    :
-                    <div className='flex flex-col gap-4 items-center justify-center w-full h-full pt-4 pb-4'>
-                        <p>No products found</p>
-                        <button className='outline-btn w-48' onClick={() => router.push('/')}>Go To HomePage</button>
-                    </div>
-                }
+                </div>
+
             </div>
         }
         </>

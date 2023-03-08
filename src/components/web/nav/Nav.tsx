@@ -5,8 +5,9 @@ import Link from 'next/link'
 import { getMyProfile } from '../../../redux/features/accountSlice'
 import { getProductsCategory } from '../../../redux/features/productSlice'
 import { logout } from '../../../redux/features/authSlice'
+import { getNotifications } from '../../../redux/features/notificationSlice'
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { FaUser, FaBox, FaHeart } from 'react-icons/fa'
 import { getCart } from '../../../redux/features/cartSlice'
 import { useRouter } from 'next/router'
@@ -18,12 +19,7 @@ const Nav = () => {
 
     const { query } = useRouter() as any
 
-    const { cartItems } = useAppSelector((state) => state.cart)
-    const { isAuthenticated, token } = useAppSelector((state) => state.auth)
-    const { loading, productsCategory } = useAppSelector((state) => state.product)
-
-
-    const { profile } = useAppSelector((state) => state.account)
+    const [showSidebar, setShowSidebar] = useState('-left-72');
     const [fullName, setFullName] = useState('')
     const [totalCart, setTotalCart] = useState(0)
     const [searchBy, setSearchBy] = useState('Get Products')
@@ -32,6 +28,36 @@ const Nav = () => {
     const [isProfileOpen, setIsProfileOpen] = useState(false)
     const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false)
 
+    const { cartItems } = useAppSelector((state) => state.cart)
+    const { isAuthenticated, token } = useAppSelector((state) => state.auth)
+    const { productsCategory } = useAppSelector((state) => state.product)
+    const { profile } = useAppSelector((state) => state.account)
+    const { notifications } = useAppSelector((state) => state.notification)
+
+    // fetch cart user and products category
+    const fetchCartAndUser = useCallback(() => {
+        if (isAuthenticated) {
+            dispatch(getCart(token))
+            dispatch(getMyProfile(token))
+            dispatch(getNotifications(''))
+        }
+    }, [dispatch, token, isAuthenticated])
+
+    const fetchProductsCategory = useCallback(() => {
+        dispatch(getProductsCategory(''))
+    }, [dispatch])
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            fetchCartAndUser()
+        }
+    }, [fetchCartAndUser, isAuthenticated])
+
+    useEffect(() => {
+        fetchProductsCategory()
+    }, [fetchProductsCategory])
+
+    // sum total cart items
     useEffect(() => {
         if (cartItems) {
             let total = 0
@@ -42,6 +68,7 @@ const Nav = () => {
         }
     }, [cartItems])
 
+    // set search term to url
     useEffect(() => {
         if (query) {
             setSearchTerm(query.search)
@@ -50,19 +77,21 @@ const Nav = () => {
         }
     }, [query])
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            dispatch(getMyProfile(token))
-            dispatch(getCart(token))
-        }
-        dispatch(getProductsCategory(''))
-    }, [dispatch, isAuthenticated, token])
-
+    // set full name
     useEffect(() => {
         if (profile) {
             setFullName(profile.fullName)
         }
     }, [profile])
+
+    // set is authenticated user to true or false to avoid nextjs hydration error
+    useEffect(() => {
+        if (isAuthenticated) {
+            setIsAuthenticatedUser(true)
+        } else {
+            setIsAuthenticatedUser(false)
+        }
+    }, [isAuthenticated])
 
     const toggleProfile = () => {
         setIsProfileOpen(!isProfileOpen)
@@ -72,16 +101,6 @@ const Nav = () => {
         dispatch(logout())
         setIsProfileOpen(false)
     }
-
-    useEffect(() => {
-        if (isAuthenticated) {
-            setIsAuthenticatedUser(true)
-        } else {
-            setIsAuthenticatedUser(false)
-        }
-    }, [isAuthenticated])
-
-    const [showSidebar, setShowSidebar] = useState('-left-72');
 
     const toggleSidebar = () => {
         if (showSidebar === '-left-72') {
@@ -193,14 +212,16 @@ const Nav = () => {
 
                                 <Link href="#">
                                     <div className="flex flex-row items-center justify-center rounded-full w-10 h-10 mr-2 cursor-pointer relative">
-                                        <div className="absolute -top-0 -right-0 bg-red border-none text-white text-xs font-light rounded-full w-5 h-5 flex flex-row items-center justify-center z-10">3</div>
+                                        {notifications && notifications.length > 0 && (
+                                            <div className="absolute -top-0 -right-0 bg-red5 border-none text-white text-xs font-light rounded-full w-5 h-5 flex flex-row items-center justify-center z-10">{notifications?.length}</div>
+                                        )}
                                         <Image src={Notification} alt="Notification" />
                                     </div>
                                 </Link>
 
                                 <Link href="/cart">
                                     <a className="flex flex-row items-center justify-center rounded-full w-10 h-10 mr-2 cursor-pointer relative">
-                                        <div className="absolute -top-0 -right-0 bg-red border-none text-white text-xs font-light rounded-full w-5 h-5 flex flex-row items-center justify-center z-10">{totalCart}</div>
+                                        <div className="absolute -top-0 -right-0 bg-red5 border-none text-white text-xs font-light rounded-full w-5 h-5 flex flex-row items-center justify-center z-10">{totalCart}</div>
                                         <Image src={Cart} alt="Cart" />
                                     </a>
                                 </Link>
@@ -426,8 +447,9 @@ const Nav = () => {
                                     <div className='flex flex-col'>
                                         <p className="text-white text-xs font-medium ml-2">Notification</p>
                                     </div>
-
-                                    <div className="absolute top-[-13px] left-[5px] bg-red border-none text-white text-[10px] font-light rounded-full w-5 h-5 flex flex-row items-center justify-center z-10">3</div>
+                                    {notifications && notifications.length > 0 && (
+                                        <div className="absolute top-[-13px] left-[5px] bg-red5 border-none text-white text-[10px] font-light rounded-full w-5 h-5 flex flex-row items-center justify-center z-10">{notifications?.length}</div>
+                                    )}
                                 </a>
                             </Link>
 
@@ -438,7 +460,7 @@ const Nav = () => {
                                         <p className="text-white text-xs font-medium ml-2">Cart</p>
                                     </div>
 
-                                    <div className="absolute top-[-13px] left-[14px] bg-red border-none text-white text-[10px] font-light rounded-full w-5 h-5 flex flex-row items-center justify-center z-10">{totalCart}</div>
+                                    <div className="absolute top-[-13px] left-[14px] bg-red5 border-none text-white text-[10px] font-light rounded-full w-5 h-5 flex flex-row items-center justify-center z-10">{totalCart}</div>
                                 </a>
                             </Link>
 

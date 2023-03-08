@@ -131,13 +131,17 @@ const Job = (props: any) => {
   }
 
   // deactivate job
-  const handleDeactivateJob = (jobID: any) => {
-    props.deactivateJob(jobID)
+  const handleDeactivateJob = (data: any) => {
+    props.deactivateJob({
+      jobID: jobID,
+    })
   }
 
   // activate job
-  const handleActivateJob = (jobID: any) => {
-    props.activateJob(jobID)
+  const handleActivateJob = (data: any) => {
+    props.activateJob({
+      jobID: jobID,
+    })
   }
 
   // add skills
@@ -494,9 +498,9 @@ const Job = (props: any) => {
 
                       {/* activate and deactivate button */}
                       {props.loading ? (
-                        <button className="filled-btn flex items-center justify-center gap-3 w-full" disabled>
+                        <button className="filled-btn flex items-center justify-center gap-3 w-32 bg-red" disabled>
                           <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
-                          Processing...
+                          {/* Processing... */}
                         </button>
                       ) : (
                         <button className={`w-32 filled-btn opacity-80 ${singleJob.isActive === true ? 'bg-red' : 'bg-primary'}`} onClick={

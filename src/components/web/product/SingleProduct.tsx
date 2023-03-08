@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -8,6 +9,8 @@ import { formatAmount } from '../../../utils/functions'
 import { useAppSelector } from '../../../redux/hooks'
 import { useRouter } from 'next/router'
 import { FaComments } from 'react-icons/fa'
+import { Gallery, Item } from 'react-photoswipe-gallery';
+import 'photoswipe/dist/photoswipe.css';
 
 const SingleProduct = (props: any) => {
 
@@ -116,7 +119,44 @@ const SingleProduct = (props: any) => {
                             <div className="flex flex-col md:flex-row gap-4 md:gap-10">
                                 <div className='flex flex-col'>
                                     <div>
-                                        <Image src={mainImage} alt="product-image" width={400} height={400} />
+                                        {/* <Image src={mainImage} alt="product-image" width={400} height={400} /> */}
+                                        <Gallery>
+                                            <Item
+                                                original={mainImage}
+                                                thumbnail={mainImage}
+                                                width="600"
+                                                height="600"
+                                            >
+                                                {({ ref, open }) => (
+                                                    <img src={mainImage} alt="product-image" width={400} height={400}
+                                                        ref={ref as any}
+                                                        onClick={open}
+                                                    />
+                                                )}
+                                            </Item>
+
+                                            {/* {images.map((image: any, index: any) => (
+                                                <Item
+                                                    key={index}
+                                                    original={image.image}
+                                                    thumbnail={image.image}
+                                                    width="600"
+                                                    height="600"
+                                                >
+                                                    {({ ref, open }) => (
+                                                        <img
+                                                            src={image.image}
+                                                            alt="product-image"
+                                                            width={400}
+                                                            height={400}
+                                                            ref={ref as any}
+                                                            onClick={open}
+                                                        />
+                                                    )}
+                                                </Item>
+                                            ))} */}
+                                        </Gallery>
+
                                     </div>
 
                                     <div className="flex flex-row gap-2 mt-2">

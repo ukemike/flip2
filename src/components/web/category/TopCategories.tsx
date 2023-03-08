@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Carousel from "react-multi-carousel";
+import 'react-multi-carousel/lib/styles.css';
 
 const TopCategoris = ({ productsCategory }: { productsCategory: any }) => {
     const responsive2 = {

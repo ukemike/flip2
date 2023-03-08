@@ -57,6 +57,17 @@ const ProductCard2 = (props: ProductProps) => {
                                 <span className="text-gray22 text-xs font-medium">₦ {formatAmount(price)}</span>
                             )}
 
+                            {/* {isDiscountAvailable === 'Yes' ? (
+                                <>
+                                    <p className="text-gray22 text-xs font-normal">₦ {formatAmount(discountAmount)}</p>
+                                    <p className="text-gray14 text-xs font-normal line-through mt-1">₦ {formatAmount(price)}</p>
+                                </>
+                            ) : (
+                                <>
+                                    <p className="text-gray22 text-xs font-normal pb-5">₦ {formatAmount(price)}</p>
+                                </>
+                            )} */}
+
 
                             <div className='flex items-center gap-3'>
                                 <ReactStars

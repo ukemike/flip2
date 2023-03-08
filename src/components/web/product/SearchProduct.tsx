@@ -73,20 +73,20 @@ const SearchProduct = (props: any) => {
                 </div>
                 :
                 <div className="pt-6">
-                    {props.filteredProducts && props.filteredProducts.length > 0 ?
-                        <div className="flex flex-col-reverse md:flex-row gap-5 pt-6">
+
+                    <div className="flex flex-col-reverse md:flex-row gap-5 pt-6">
 
 
-                            {/* filter */}
-                            <div className="hidden md:block md:w-1/4">
-                                <ProductFilter
-                                    productsCategory={props.productsCategory}
-                                    query={props.query}
-                                />
-                            </div>
-
-                            {/* products */}
-                            <div className="w-full md:w-3/4">
+                        {/* filter */}
+                        <div className="hidden md:block md:w-1/4">
+                            <ProductFilter
+                                productsCategory={props.productsCategory}
+                                query={props.query}
+                            />
+                        </div>
+                        {/* products */}
+                        {props.filteredProducts && props.filteredProducts.length > 0 ?
+                            < div className="w-full md:w-3/4">
                                 <div className="flex bg-backg2 p-3 mb-1">
                                     <p className="text-base md:text-lg font-medium text-gray16">
                                         Showing {props.filteredProducts && props.filteredProducts.length} results for {props.query.search}
@@ -187,14 +187,15 @@ const SearchProduct = (props: any) => {
                                 </div>
 
                             </div>
+                            :
+                            <div className='flex flex-col gap-4 items-center justify-center w-full h-full pt-4 pb-4'>
+                                <p>There are no results for {props.query.search}.</p>
+                                <button className='outline-btn w-48' onClick={() => router.push('/')}>Go To HomePage</button>
+                            </div>
+                        }
 
-                        </div>
-                        :
-                        <div className='flex flex-col gap-4 items-center justify-center w-full h-full pt-4 pb-4'>
-                            <p>There are no results for {props.query.search}.</p>
-                            <button className='outline-btn w-48' onClick={() => router.push('/')}>Go To HomePage</button>
-                        </div>
-                    }
+                    </div>
+
 
                 </div>
             }

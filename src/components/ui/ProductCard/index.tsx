@@ -48,11 +48,13 @@ const ProductCard = (props: ProductProps) => {
 
                         {isDiscountAvailable === 'Yes' ? (
                             <>
-                                <p className="text-gray22 text-xs font-normal">₦ {formatAmount(discountAmount)}</p>
-                                <p className="text-gray14 text-xs font-normal line-through mt-1">₦ {formatAmount(price)}</p>
+                                <p className="text-gray22 text-xs font-medium">₦ {formatAmount(discountAmount)}</p>
+                                <p className="text-gray14 text-xs font-medium line-through mt-1">₦ {formatAmount(price)}</p>
                             </>
                         ) : (
-                            <p className="text-gray22 text-xs font-normal">₦ {formatAmount(price)}</p>
+                            <>
+                                <p className="text-gray22 text-xs font-normal pb-5">₦ {formatAmount(price)}</p>
+                            </>
                         )}
 
                     </div>

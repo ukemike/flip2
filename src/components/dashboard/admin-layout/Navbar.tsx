@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Search2 } from '../../../assets'
 import { getMyProfile } from '../../../redux/features/accountSlice'
+import { getNotifications } from '../../../redux/features/notificationSlice'
 
 const Navbar = ({ showSidebar, setShowSidebar, title }: { showSidebar: any, setShowSidebar: any, title: any }) => {
     const dispatch = useAppDispatch()
@@ -14,6 +15,8 @@ const Navbar = ({ showSidebar, setShowSidebar, title }: { showSidebar: any, setS
 
     const { token, isAuthenticated, role } = useAppSelector((state) => state.auth)
     const { profile } = useAppSelector((state) => state.account)
+    const { notifications } = useAppSelector((state) => state.notification)
+
     const [fullName, setFullName] = useState('')
     const [image, setImage] = useState('')
 
@@ -22,6 +25,7 @@ const Navbar = ({ showSidebar, setShowSidebar, title }: { showSidebar: any, setS
             router.push('/login')
         } else {
             dispatch(getMyProfile(token))
+            dispatch(getNotifications(''))
         }
     }, [token, isAuthenticated, router, dispatch])
 
@@ -59,7 +63,10 @@ const Navbar = ({ showSidebar, setShowSidebar, title }: { showSidebar: any, setS
 
                         {/*profile */}
                         <div className="flex gap-10">
-                            <div className='border-[1px] border-gray24 w-10 h-10 flex items-center justify-center rounded-[8px] cursor-pointer'>
+                            <div className='border-[1px] border-gray24 w-10 h-10 flex items-center justify-center rounded-[8px] cursor-pointer relative'>
+                                {notifications && notifications.length > 0 && (
+                                    <div className="absolute top-[-1px] right-[1px] bg-red5 border-none text-white text-[10px] font-light rounded-full w-4 h-4 flex flex-row items-center justify-center z-10">{notifications?.length}</div>
+                                )}
                                 <Image src={Notification2} alt="notification" />
                             </div>
                             <Link href={'/profile'}>

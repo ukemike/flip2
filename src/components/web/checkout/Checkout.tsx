@@ -35,10 +35,10 @@ const Checkout = (props: any) => {
     const [cart, setCart] = useState([] as any)
     const [formError, setFormError] = useState(false)
     const [deliveryMethod, setDeliveryMethod] = useState('delivery')
-    const [totalItems, setTotalItems] = useState(0)
-    const [totalPrice, setTotalPrice] = useState(0)
-    const [shippingFee, setShippingFee] = useState(0)
-    const [totalAmount, setTotalAmount] = useState(0)
+    const [totalItems, setTotalItems] = useState(0 as any)
+    const [totalPrice, setTotalPrice] = useState(0 as any)
+    const [shippingFee, setShippingFee] = useState(0 as any)
+    const [totalAmount, setTotalAmount] = useState(0 as any)
 
     useEffect(() => {
         if (props.cartItems) {
@@ -48,23 +48,23 @@ const Checkout = (props: any) => {
             })
             setTotalItems(total)
 
-            let price = 0
+            let price: any = 0
             props.cartItems.map((item: any) => {
                 price = price + (+item.numberOfItems * +item.product.product.discount.discountAmount)
             })
-            setTotalPrice(price)
+            setTotalPrice(price.toFixed(2))
 
-            let shipping = 0
+            let shipping: any = 0
             props.cartItems.map((item: any) => {
                 shipping = +shipping + +item.product.product.delivery.shippingFee
             })
-            setShippingFee(shipping)
+            setShippingFee(shipping.toFixed(2))
 
-            let amount = 0
+            let amount: any = 0
             props.cartItems.map((item: any) => {
                 amount = amount + (+item.numberOfItems * +item.product.product.discount.discountAmount) + +item.product.product.delivery.shippingFee
             })
-            setTotalAmount(amount)
+            setTotalAmount(amount.toFixed(2))
             setCart(
                 props.cartItems.map((item: any) => {
                     return {
@@ -178,12 +178,6 @@ const Checkout = (props: any) => {
     }
 
     const initializePayment = usePaystackPayment(config);
-
-    // useEffect(() => {
-    //     if (orderSuccess) {
-    //         router.push('/')
-    //     }
-    // }, [orderSuccess, router])
 
 
     // scroll to the top when a new step changes
@@ -753,7 +747,7 @@ const Checkout = (props: any) => {
                 <div className="flex flex-col-reverse md:flex-col-reverse md:px-40 gap-4 pt-6">
 
                     <div className="w-full">
-                        {payment_method === 'paystack' && (
+                        {/* {payment_method === 'paystack' && (
                             <div className="bg-gray17 p-3">
                                 <div className='flex flex-row justify-between border-b-2 border-gray19 pb-3'>
                                     <p className="text-base font-medium text-gray11 mb-2">You will pay with</p>
@@ -774,7 +768,7 @@ const Checkout = (props: any) => {
 
 
                             </div>
-                        )}
+                        )} */}
                         <button className="outline-btn mt-3"
                             disabled={props.orderLoading}
                             onClick={

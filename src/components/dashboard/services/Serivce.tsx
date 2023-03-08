@@ -396,11 +396,8 @@ const Serivce = (props: any) => {
                               <>
                                 {props.loadingActivateServiceDeactivateService ? (
                                   <li>
-                                    <div className="px-4 py-2 text-sm text-gray11 font-medium hover:bg-primary6 hover:text-white flex items-center gap-1">
-                                      <svg className="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                                      </svg>
+                                    <div className="px-4 py-2 text-sm font-medium bg-primary6 text-white flex items-center gap-1">
+                                      <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>{" "}
                                       Deactivating...
                                     </div>
                                   </li>
@@ -418,11 +415,8 @@ const Serivce = (props: any) => {
                               <>
                                 {props.loadingActivateServiceDeactivateService ? (
                                   <li>
-                                    <div className="px-4 py-2 text-sm text-gray11 font-medium hover:bg-primary6 hover:text-white flex items-center gap-1">
-                                      <svg className="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                                      </svg>
+                                    <div className="px-4 py-2 text-sm font-medium bg-primary6 text-white flex items-center gap-1">
+                                      <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>{" "}
                                       Activating...
                                     </div>
                                   </li>
@@ -557,7 +551,7 @@ const Serivce = (props: any) => {
                 value={category_id || ''}
                 onChange={(e) => setCategoryId(e.target.value)}
               >
-                <option disabled>Select Category</option>
+                <option>Select Category</option>
                 {props.servicesCategories && props.servicesCategories.map((category: any, index: number) => (
                   <option value={category.categoryID} key={index}>{category.name}</option>
                 ))}
@@ -761,15 +755,14 @@ const Serivce = (props: any) => {
 
 
             {props.loading ? (
-              <button className="bg-primary text-white text-sm font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary flex items-center gap-1" disabled>
-                <svg className="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                </svg>
+              <button className="filled-btn flex items-center justify-center gap-3 w-full" disabled>
+                <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
                 Uploading...
               </button>
             ) : (
-              <button type='button' className="bg-primary text-white text-sm font-semibold py-2 px-4 rounded-md" onClick={() => { handleUpload() }}>Upload Image</button>
+              <button type='button' className="filled-btn" onClick={() => { handleUpload() }}>Upload Image
+                <span className="absolute w-3 bottom-0 bg-primary4 inset-y-0 left-0"></span>
+              </button>
             )}
 
             {/* </form> */}
@@ -784,7 +777,7 @@ const Serivce = (props: any) => {
                 {imagesToDisplay.map((image: any, index: any) => (
                   <div className="relative" key={index}>
                     <Image src={image.image} alt="" width={100} height={100} />
-                    <button className="absolute top-0 right-0 text-white w-5 h-5 flex items-center justify-center"
+                    <button className="absolute top-0 right-0 text-white w-5 h-5 flex items-center justify-center bg-gray22 rounded-full hover:bg-red transition duration-200 ease-in-out"
                       onClick={
                         () => {
                           handleRemoveImage(image.imageID)

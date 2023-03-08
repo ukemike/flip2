@@ -13,7 +13,7 @@ const Cart = ({ cartItems, cartLoading, removeFromCart, updateCartRemove, update
 
     const [cartID, setCartID] = useState(0)
     const [totalItems, setTotalItems] = useState(0)
-    const [totalPrice, setTotalPrice] = useState(0)
+    const [totalPrice, setTotalPrice] = useState(0 as any)
 
     useEffect(() => {
         if (cartItems) {
@@ -23,11 +23,11 @@ const Cart = ({ cartItems, cartLoading, removeFromCart, updateCartRemove, update
             })
             setTotalItems(total)
 
-            let price = 0
+            let price: any = 0
             cartItems.map((item: any) => {
                 price = price + (+item.numberOfItems * +item.product.product.discount.discountAmount)
             })
-            setTotalPrice(price)
+            setTotalPrice(price.toFixed(2))
         }
     }, [cartItems])
 
@@ -316,8 +316,8 @@ const Cart = ({ cartItems, cartLoading, removeFromCart, updateCartRemove, update
                         </div>
                     ) : (
                         <div className="flex flex-col items-center justify-center pt-10">
-                            <Image src={EmptyCart} alt="Empty Cart" 
-                            width={250} height={150}
+                            <Image src={EmptyCart} alt="Empty Cart"
+                                width={250} height={150}
                             />
                             <p className="text-base font-medium text-gray11 mt-4 text-center">Your cart is empty</p>
                             <p className="text-sm font-light text-gray18 mt-2 text-center">Looks like you haven't added anything to your cart yet.</p>

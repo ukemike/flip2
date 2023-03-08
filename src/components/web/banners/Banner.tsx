@@ -59,11 +59,11 @@ const Banner = ({ productsCategory, products }: { productsCategory: any, product
         );
     };
 
-      const [width, setWidth] = React.useState(0)
+    const [width, setWidth] = React.useState(0)
 
-        React.useEffect(() => {
-            setWidth(window.innerWidth)
-        }, [width])
+    React.useEffect(() => {
+        setWidth(window.innerWidth)
+    }, [width])
 
     return (
         <>
@@ -155,8 +155,8 @@ const Banner = ({ productsCategory, products }: { productsCategory: any, product
                         {featuredProducts && featuredProducts.map((item: any, index: number) => (
                             <Link href={`/product/${item.product.productID}?name=${item.product.slug}`} key={index}>
                                 <a className="relative rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px]">
-                                    <Image src={Chair} className='rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px]' alt='banner' 
-                                        
+                                    <Image src={Chair} className='rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px]' alt='banner'
+
                                     />
                                     {/* width={305} height={187}  */}
                                     {/* {item.product.images.length > 0 ? (
@@ -182,8 +182,6 @@ const Banner = ({ productsCategory, products }: { productsCategory: any, product
                 </div>
 
             </div>
-
-
         </>
     )
 }

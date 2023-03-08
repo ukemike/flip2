@@ -83,13 +83,13 @@ const messageSlice = createSlice({
     name: 'job',
     initialState,
     reducers: {
-        clearMessage: (state) => {
+        clearMessageChat: (state) => {
             state.message = '';
             state.success = false;
             state.successFetchAllChats = false;
             state.successFetchSingleChat = false;
         },
-        clearError: (state) => {
+        clearErrorChat: (state) => {
             state.error = '';
             state.success = false;
             state.successFetchAllChats = false;
@@ -137,6 +137,6 @@ const messageSlice = createSlice({
     }
 })
 
-export const { clearMessage, clearError } = messageSlice.actions;
+export const { clearMessageChat, clearErrorChat } = messageSlice.actions;
 
 export default messageSlice.reducer;

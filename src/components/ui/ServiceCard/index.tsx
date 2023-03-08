@@ -9,7 +9,7 @@ import ReactStars from 'react-stars'
 interface ServiceProps {
     serviceID: string;
     serviceName: string;
-    pricing: number;
+    pricing: string;
     description: string;
     location: string;
     images: any[];

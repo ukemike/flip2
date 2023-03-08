@@ -1,16 +1,15 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import "react-multi-carousel/lib/styles.css";
 import Nav from '../../src/components/web/nav/Nav'
 import CategoryComponent from '../../src/components/web/category/Category'
 import Recent from '../../src/components/web/recent/Recent'
 import NewsLetter from '../../src/components/web/newsLetter/NewsLetter'
 import Footer from '../../src/components/web/footer/Footer'
-import { getProductsByCategory, getProductsCategory } from '../../src/redux/features/productSlice'
+import { getAllProducts, getProductsCategory } from '../../src/redux/features/productSlice'
 import { addToCart, getCart, updateCartAdd, updateCartRemove, clearError, clearMessage } from '../../src/redux/features/cartSlice'
 import { useAppSelector, useAppDispatch } from '../../src/redux/hooks'
-import { useEffect } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { GetStaticProps } from 'next'
 import { useRouter } from "next/router";
 import Toast from '../../src/components/toast/Toast'
@@ -19,52 +18,99 @@ const Category: NextPage = (props: any) => {
     const { query } = useRouter() as any
     const dispatch = useAppDispatch()
 
+    const [search, setSearch] = useState(typeof window !== 'undefined' && query.search || '')
+    const [category, setCategory] = useState(typeof window !== 'undefined' && props.categoryId || '')
+    const [priceRange, setPriceRange] = useState(typeof window !== 'undefined' && query.priceRange || '')
+    const [discountPercentage, setDiscountPercentage] = useState(typeof window !== 'undefined' && query.discountPercentage || '')
+    const [freeDelivery, setFreeDelivery] = useState(typeof window !== 'undefined' && query.freeDelivery || '')
+    const [byMerchant, setByMerchant] = useState(typeof window !== 'undefined' && query.byMerchant || '')
+
     const { token } = useAppSelector((state) => state.auth)
     const { loading, products, productsCategory, loadingFetchProducts } = useAppSelector((state) => state.product)
     const { success: cartSuccess, message: cartMessage, error: cartError, loading: cartLoading, cartItems, loadingUpdateCart } = useAppSelector(state => state.cart)
 
-    useEffect(() => {
-        dispatch(getProductsByCategory(props.categoryId))
-        dispatch(getProductsCategory(token))
-    }, [dispatch, props.categoryId, token])
 
+    // fetch cart items
+    const fetchCart = useCallback(() => {
+        dispatch(getCart(token))
+    }, [dispatch, token])
+
+    useEffect(() => {
+        fetchCart()
+    }, [fetchCart])
+
+    // set search, category, priceRange, discountPercentage, freeDelivery, byMerchant from query
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (query || props) {
+                setSearch(query.search || '')
+                setCategory(props.categoryId || '')
+                setPriceRange(query.priceRange || '')
+                setDiscountPercentage(query.discountPercentage || '')
+                setFreeDelivery(query.freeDelivery || '')
+                setByMerchant(query.byMerchant || '')
+            } else {
+                setSearch('')
+                setCategory('')
+                setPriceRange('')
+                setDiscountPercentage('')
+                setFreeDelivery('')
+                setByMerchant('')
+            }
+        }
+    }, [query, props])
+
+    // fetch products and category
+    const fetchProductsAndCategory = useCallback(() => {
+        if (typeof window !== 'undefined' && props && props.categoryId) {
+            dispatch(getAllProducts({ search, category, priceRange, discountPercentage, freeDelivery, byMerchant }))
+            dispatch(getProductsCategory(token))
+        }
+    }, [dispatch, token, props, search, category, priceRange, discountPercentage, freeDelivery, byMerchant])
+
+    useEffect(() => {
+        fetchProductsAndCategory()
+    }, [fetchProductsAndCategory])
+
+
+    // clear error and success message after 3 seconds
     useEffect(() => {
         if (cartError) {
             setTimeout(() => {
                 dispatch(clearError())
             }, 3000);
         }
-        if (cartSuccess) {
-            setTimeout(() => {
-                dispatch(clearMessage())
-            }, 3000);
-        }
-    }, [cartSuccess, cartError, cartMessage, dispatch, token])
+    }, [cartError, dispatch])
 
     useEffect(() => {
         if (cartSuccess) {
             setTimeout(() => {
+                dispatch(clearMessage())
                 dispatch(getCart(token))
-            }, 100);
+            }, 1000);
         }
     }, [cartSuccess, dispatch, token])
 
-    const handleAddToCart = (data: any) => {
-        dispatch(addToCart(data))
-    }
+    // update cart add
+    const handleAddToCart = useCallback((data: any) => {
+        dispatch(addToCart(data));
+    }, [dispatch]);
 
-    const handleUpdateCart = (data: any) => {
-        dispatch(updateCartAdd(data))
-    }
+    // update cart add
+    const handleUpdateCart = useCallback((data: any) => {
+        dispatch(updateCartAdd(data));
+    }, [dispatch]);
 
-    const handleUpdateCartRemove = (data: any) => {
-        dispatch(updateCartRemove(data))
-    }
+    // update cart remove
+    const handleUpdateCartRemove = useCallback((data: any) => {
+        dispatch(updateCartRemove(data));
+    }, [dispatch]);
+
 
     return (
         <div>
             <Head>
-                <title>Cue |  The artisan for Digital and Offline Space</title>
+                <title>Flip</title>
                 <meta name="description" content="Generated by create next app" />
                 <link rel="icon" href="/flip-favicon.png" />
             </Head>
@@ -88,7 +134,6 @@ const Category: NextPage = (props: any) => {
                         loadingFetchProducts={loadingFetchProducts}
                         productsCategory={productsCategory}
                         id={props.categoryId}
-
                         addToCart={handleAddToCart}
                         cartLoading={cartLoading}
                         updateCartRemove={handleUpdateCartRemove}
@@ -99,14 +144,10 @@ const Category: NextPage = (props: any) => {
 
                     <Recent />
 
-
                     <NewsLetter />
 
                     <div className="pt-20"></div>
-
-
                 </div>
-
             </section>
 
             <footer className="bg-backg w-full h-full">
@@ -120,7 +161,7 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
     const categoryId = context.params.categoryId
     return {
         props: {
-            categoryId: categoryId
+            categoryId: categoryId,
         }
     }
 }

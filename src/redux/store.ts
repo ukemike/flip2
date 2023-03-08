@@ -9,7 +9,7 @@ import jobReducer from './features/jobSlice'
 import cartReducer from './features/cartSlice'
 import orderReducer from './features/orderSlice'
 import messageSlice from './features/messageSlice'
-import filterSlice from './features/filterSlice'
+import notificationSlice from './features/notificationSlice'
 
 export function makeStore() {
     return configureStore({
@@ -23,7 +23,7 @@ export function makeStore() {
             cart: cartReducer,
             order: orderReducer,
             message: messageSlice,
-            filter: filterSlice,
+            notification: notificationSlice,
         }
     })
 }

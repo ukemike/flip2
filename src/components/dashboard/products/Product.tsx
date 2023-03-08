@@ -14,7 +14,6 @@ const Product = (props: any) => {
 
   const scrollTo = React.useRef({} as any);
 
-  const [displayType, setDisplayType] = React.useState('list')
   const [singleProduct, setSingleProduct] = React.useState({} as any)
   const [singleCategory, setSingleCategory] = React.useState({} as any)
   const [editProduct, setEditProduct] = React.useState(false)
@@ -231,7 +230,7 @@ const Product = (props: any) => {
   // create product
   const handleCreateProduct = async (e: any) => {
     e.preventDefault()
-    if (name === '' || price === '' || description === '' || category_id === '' || quantity === '' || product_warranty === '' ) {
+    if (name === '' || price === '' || description === '' || category_id === '' || quantity === '' || product_warranty === '') {
       setFormError(true)
       scrollTo.current.scrollIntoView({ behavior: 'smooth', block: 'start', });
       return
@@ -425,13 +424,12 @@ const Product = (props: any) => {
 
             <div className="flex items-center justify-end gap-4 w-full">
 
-              <button className="filled-btn md:w-40" onClick={
-                () => {
+              <button className="filled-btn md:w-40"
+                onClick={() => {
                   toggleDrawer()
                   setCreateProducts(true)
                   setEditProduct(false)
-                }
-              }>
+                }}>
                 Create Product
                 <span className="absolute w-3 bottom-0 bg-primary4 inset-y-0 left-0"></span>
               </button>
@@ -573,11 +571,8 @@ const Product = (props: any) => {
                               <>
                                 {props.loadingActivateProductDeactivateProduct ? (
                                   <li>
-                                    <div className="px-4 py-2 text-sm text-gray11 font-medium hover:bg-primary6 hover:text-white flex items-center gap-1">
-                                      <svg className="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                                      </svg>
+                                    <div className="px-4 py-2 text-sm font-medium bg-primary6 text-white flex items-center gap-1">
+                                      <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>{" "}
                                       Deactivating...
                                     </div>
                                   </li>
@@ -591,11 +586,8 @@ const Product = (props: any) => {
                               <>
                                 {props.loadingActivateProductDeactivateProduct ? (
                                   <li>
-                                    <div className="px-4 py-2 text-sm text-gray11 font-medium hover:bg-primary6 hover:text-white flex items-center gap-1">
-                                      <svg className="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                                      </svg>
+                                    <div className="px-4 py-2 text-sm font-medium bg-primary6 text-white flex items-center gap-1">
+                                      <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>{" "}
                                       Activating...
                                     </div>
                                   </li>
@@ -745,7 +737,7 @@ const Product = (props: any) => {
                   value={category_id || ''}
                   onChange={(e) => setCategory_id(e.target.value)}
                 >
-                  <option disabled>Select Category</option>
+                  <option>Select Category</option>
                   {props.productsCategory && props.productsCategory.map((category: any, index: number) => (
                     <option value={category.categoryID} key={index}>{category.name}</option>
                   ))}
@@ -937,7 +929,8 @@ const Product = (props: any) => {
                 {free_delivery === 'Yes' ? (
                   <p className="text-sm text-gray26 font-medium">Free</p>
                 ) : (
-                  <p className="text-sm text-gray26 font-medium">₦{formatAmount(shipping_fee)}</p>
+                  <p></p>
+                  // <p className="text-sm text-gray26 font-medium">₦{formatAmount(shipping_fee)}</p>
                 )}
               </div>
 

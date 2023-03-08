@@ -5,7 +5,7 @@ import ProfileComponent from '../../src/components/dashboard/profile/Profile'
 import Head from 'next/head'
 import { getMyProfile, updateBusinessMerchantProfile, updatePersonalMerchantProfile, updateConsumerProfile, addMerchantSkills, addMerchantLanguages, addMerchantWorkHistory, addMerchantEducation, addMerchantProjects, removeMerchantEducation, editMerchantEducation, removeMerchantWorkHistory, editMerchantWorkHistory, removeMerchantProjects, editMerchantProjects, removeMerchantSkills, editMerchantSkills, removeMerchantLanguages, editMerchantLanguages, updateBankDetails, getTransactions, updateProfilePicture, getStates, getLgas, clearError, clearMessage } from '../../src/redux/features/accountSlice'
 import { useAppSelector, useAppDispatch } from '../../src/redux/hooks'
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import AlertModal from '../../src/components/alert/Alert'
 
 const Profile: NextPage = () => {
@@ -14,103 +14,107 @@ const Profile: NextPage = () => {
   const { isAuthenticated, token } = useAppSelector((state) => state.auth)
   const { profile, transactions, loadingFetchTransactions, loading, loadingFetchProfile, message, success, error, states, lgas, loadingFetchCountriesStatesLgas, loadingUpdateProfilePicture } = useAppSelector((state) => state.account)
 
+  const fetchProfileAndTransactions = useCallback(() => {
+    dispatch(getMyProfile(token))
+    dispatch(getTransactions(token))
+    dispatch(getStates(160))
+  }, [dispatch, token])
+
   useEffect(() => {
     if (isAuthenticated) {
-      dispatch(getMyProfile(token))
-      dispatch(getTransactions(token))
-      dispatch(getStates(160))
+      fetchProfileAndTransactions()
     }
-  }, [dispatch, isAuthenticated, token])
+  }, [fetchProfileAndTransactions, isAuthenticated])
 
-  const handleUpdateBusinessMerchantProfile = (data: any) => {
+  const handleUpdateBusinessMerchantProfile = useCallback((data: any) => {
     dispatch(updateBusinessMerchantProfile(data))
-  }
+  }, [dispatch])
 
-  const handleUpdatePersonalMerchantProfile = (data: any) => {
+  const handleUpdatePersonalMerchantProfile = useCallback((data: any) => {
     dispatch(updatePersonalMerchantProfile(data))
-  }
+  }, [dispatch])
 
-  const handleUpdateConsumerProfile = (data: any) => {
+  const handleUpdateConsumerProfile = useCallback((data: any) => {
     dispatch(updateConsumerProfile(data))
-  }
+  }, [dispatch])
 
-  const handleAddMerchantSkills = (data: any) => {
+  const handleAddMerchantSkills = useCallback((data: any) => {
     dispatch(addMerchantSkills(data))
-  }
+  }, [dispatch])
 
-  const handleAddMerchantLanguages = (data: any) => {
+  const handleAddMerchantLanguages = useCallback((data: any) => {
     dispatch(addMerchantLanguages(data))
-  }
+  }, [dispatch])
 
-  const handleAddMerchantWorkHistory = (data: any) => {
+  const handleAddMerchantWorkHistory = useCallback((data: any) => {
     dispatch(addMerchantWorkHistory(data))
-  }
+  }, [dispatch])
 
-  const handleAddMerchantEducation = (data: any) => {
+  const handleAddMerchantEducation = useCallback((data: any) => {
     dispatch(addMerchantEducation(data))
-  }
+  }, [dispatch])
 
-  const handleAddMerchantProjects = (data: any) => {
+  const handleAddMerchantProjects = useCallback((data: any) => {
     dispatch(addMerchantProjects(data))
-  }
+  }, [dispatch])
 
-  const handleRemoveMerchantEducation = (id: number) => {
+  const handleRemoveMerchantEducation = useCallback((id: number) => {
     dispatch(removeMerchantEducation(id))
-  }
+  }, [dispatch])
 
-  const handleEditMerchantEducation = (data: any) => {
+  const handleEditMerchantEducation = useCallback((data: any) => {
     dispatch(editMerchantEducation(data))
-  }
+  }, [dispatch])
 
-  const handleRemoveMerchantWorkHistory = (id: number) => {
+  const handleRemoveMerchantWorkHistory = useCallback((id: number) => {
     dispatch(removeMerchantWorkHistory(id))
-  }
+  }, [dispatch])
 
-  const handleEditMerchantWorkHistory = (data: any) => {
+  const handleEditMerchantWorkHistory = useCallback((data: any) => {
     dispatch(editMerchantWorkHistory(data))
-  }
+  }, [dispatch])
 
-  const handleRemoveMerchantProjects = (id: number) => {
+  const handleRemoveMerchantProjects = useCallback((id: number) => {
     dispatch(removeMerchantProjects(id))
-  }
+  }, [dispatch])
 
-  const handleEditMerchantProjects = (data: any) => {
+  const handleEditMerchantProjects = useCallback((data: any) => {
     dispatch(editMerchantProjects(data))
-  }
+  }, [dispatch])
 
-  const handleRemoveMerchantSkills = (id: number) => {
+  const handleRemoveMerchantSkills = useCallback((id: number) => {
     dispatch(removeMerchantSkills(id))
-  }
+  }, [dispatch])
 
-  const handleEditMerchantSkills = (data: any) => {
+  const handleEditMerchantSkills = useCallback((data: any) => {
     dispatch(editMerchantSkills(data))
-  }
+  }, [dispatch])
 
-  const handleRemoveMerchantLanguages = (id: number) => {
+  const handleRemoveMerchantLanguages = useCallback((id: number) => {
     dispatch(removeMerchantLanguages(id))
-  }
+  }, [dispatch])
 
-  const handleEditMerchantLanguages = (data: any) => {
+  const handleEditMerchantLanguages = useCallback((data: any) => {
     dispatch(editMerchantLanguages(data))
-  }
+  }, [dispatch])
 
-  const handleUpdateBankDetails = (data: any) => {
+  const handleUpdateBankDetails = useCallback((data: any) => {
     dispatch(updateBankDetails(data))
-  }
+  }, [dispatch])
 
-  const handleUpdateProfilePicture = (data: any) => {
+  const handleUpdateProfilePicture = useCallback((data: any) => {
     dispatch(updateProfilePicture(data))
-  }
+  }, [dispatch])
 
-  const handleGetLgas = (state: number) => {
+  const handleGetLgas = useCallback((state: number) => {
     dispatch(getLgas(state))
-  }
+  }, [dispatch])
 
   return (
     <div>
       <Layout title="Profile">
         <Head>
-          <title>Cue |  The artisan for Digital and Offline Space</title>
+          <title>Flip</title>
           <meta name="description" content="Generated by create next app" />
           <link rel="icon" href="/flip-favicon.png" />
         </Head>

@@ -75,10 +75,10 @@ export const updateJob = createAsyncThunk(
 
 export const deactivateJob = createAsyncThunk(
     'job/deactivateJob',
-    async (jobID: number, thunkAPI: any) => {
+    async (data: any, thunkAPI: any) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`${baseApi}flip/job/deactivate-job-post/${jobID}`, {
+            const response = await axios.post(`${baseApi}flip/job/deactivate-job-post/${data.jobID}`, data, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -90,10 +90,10 @@ export const deactivateJob = createAsyncThunk(
 
 export const activateJob = createAsyncThunk(
     'job/activateJob',
-    async (jobID: number, thunkAPI: any) => {
+    async (data: any, thunkAPI: any) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`${baseApi}flip/job/activate-job-post/${jobID}`, {
+            const response = await axios.post(`${baseApi}flip/job/activate-job-post/${data.jobID}`, data, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return response.data;
@@ -102,7 +102,6 @@ export const activateJob = createAsyncThunk(
         }
     }
 )
-
 
 
 interface JobState {

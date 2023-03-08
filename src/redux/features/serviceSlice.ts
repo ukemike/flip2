@@ -19,7 +19,7 @@ export const getMyServices = createAsyncThunk(
     'service/getMyServices',
     async (token: any, thunkAPI: any) => {
         try {
-            const response = await axios.get(`${baseApi}flip/merchant/service/my-services`, {
+            const response = await axios.get(`${baseApi}flip/merchant/service/services-by-logged-merchant`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             return response.data;

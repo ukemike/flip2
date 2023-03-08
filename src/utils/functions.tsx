@@ -47,11 +47,26 @@ export const formatDate = (date: any) => {
     }
 }
 
-export const formatAmount = (amount: any) => {
-    if (amount) {
-        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export const formatAmount = (num: string): string => {
+    const numParts: string[] = num.toString().split('.');
+    let integerPart: string = numParts[0];
+    let decimalPart: string = numParts[1] || '';
+    let result: string = '';
+
+    for (let i = 0; i < integerPart.length; i++) {
+        if (i > 0 && (integerPart.length - i) % 3 === 0) {
+            result += ',';
+        }
+        result += integerPart.charAt(i);
     }
+
+    if (decimalPart.length > 0) {
+        result += '.' + decimalPart;
+    }
+
+    return result;
 }
+
 
 export const convertDateBack = (date: string) => {
     if (date) {
