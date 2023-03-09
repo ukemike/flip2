@@ -3,14 +3,13 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Star, Delivery, Policy, Warranty, Details, Spec, Feedback } from '../../../assets'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ReactStars from 'react-stars'
 import { formatAmount } from '../../../utils/functions'
 import { useAppSelector } from '../../../redux/hooks'
 import { useRouter } from 'next/router'
 import { FaComments } from 'react-icons/fa'
-import { Gallery, Item } from 'react-photoswipe-gallery';
-import 'photoswipe/dist/photoswipe.css';
+import FsLightbox from "fslightbox-react";
 
 const SingleProduct = (props: any) => {
 
@@ -19,15 +18,17 @@ const SingleProduct = (props: any) => {
     const { isAuthenticated } = useAppSelector((state) => state.auth)
     const [number_of_items, setNumberOfItems] = useState(1)
     const [images, setImages] = useState([] as any)
+    console.log(images)
     const [mainImage, setMainImage] = useState('' as any)
     const scrollToProductDetails = React.useRef({} as any);
     const scrollToProductSpec = React.useRef({} as any);
     const scrollToProductFeedback = React.useRef({} as any);
     const [isAddedToCart, setIsAddedToCart] = useState(false)
     const [cartID, setCartID] = useState('')
+    const [toggler, setToggler] = useState(false);
 
     // when the page loads for the first time setIsAddedToCart false
-    React.useEffect(() => {
+    useEffect(() => {
         setIsAddedToCart(false)
     }, [])
 
@@ -73,7 +74,7 @@ const SingleProduct = (props: any) => {
         scrollToProductFeedback.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (Object.keys(props.product).length > 0) {
             setImages(props?.product?.product?.images)
             setMainImage(props?.product?.product?.images[0]?.image)
@@ -84,7 +85,7 @@ const SingleProduct = (props: any) => {
         setMainImage(image)
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (props.cartItems && props.cartItems.length > 0) {
             const cartItem = props.cartItems.find((item: any) => item?.product?.product?.productID === props?.product?.product?.productID)
             if (cartItem && cartItem?.product?.product?.productID === props?.product.product?.productID) {
@@ -99,6 +100,7 @@ const SingleProduct = (props: any) => {
         }
     }, [props.cartItems, props.product])
 
+    const sources = images.map((image: any) => image.image);
 
     return (
         <>
@@ -119,44 +121,13 @@ const SingleProduct = (props: any) => {
                             <div className="flex flex-col md:flex-row gap-4 md:gap-10">
                                 <div className='flex flex-col'>
                                     <div>
-                                        {/* <Image src={mainImage} alt="product-image" width={400} height={400} /> */}
-                                        <Gallery>
-                                            <Item
-                                                original={mainImage}
-                                                thumbnail={mainImage}
-                                                width="600"
-                                                height="600"
-                                            >
-                                                {({ ref, open }) => (
-                                                    <img src={mainImage} alt="product-image" width={400} height={400}
-                                                        ref={ref as any}
-                                                        onClick={open}
-                                                    />
-                                                )}
-                                            </Item>
-
-                                            {/* {images.map((image: any, index: any) => (
-                                                <Item
-                                                    key={index}
-                                                    original={image.image}
-                                                    thumbnail={image.image}
-                                                    width="600"
-                                                    height="600"
-                                                >
-                                                    {({ ref, open }) => (
-                                                        <img
-                                                            src={image.image}
-                                                            alt="product-image"
-                                                            width={400}
-                                                            height={400}
-                                                            ref={ref as any}
-                                                            onClick={open}
-                                                        />
-                                                    )}
-                                                </Item>
-                                            ))} */}
-                                        </Gallery>
-
+                                        <Image src={mainImage} alt="product-image" width={350} height={350} onClick={() => setToggler(!toggler)} className="cursor-zoom-in"/>
+                                        <FsLightbox
+                                            toggler={toggler}
+                                            sources={sources}
+                                            type="image"
+                                            types={['image']}
+                                        />
                                     </div>
 
                                     <div className="flex flex-row gap-2 mt-2">

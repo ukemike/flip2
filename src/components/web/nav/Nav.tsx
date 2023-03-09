@@ -7,7 +7,7 @@ import { getProductsCategory } from '../../../redux/features/productSlice'
 import { logout } from '../../../redux/features/authSlice'
 import { getNotifications } from '../../../redux/features/notificationSlice'
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { FaUser, FaBox, FaHeart } from 'react-icons/fa'
 import { getCart } from '../../../redux/features/cartSlice'
 import { useRouter } from 'next/router'
@@ -110,9 +110,26 @@ const Nav = () => {
         }
     }
 
+    const profileRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+                setIsProfileOpen(false);
+                setShowSearchBy(false)
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [profileRef]);
+
     return (
         <>
-            <nav className='sticky top-0 z-[50]'>
+            <nav className='sticky top-0 z-[50]' ref={profileRef}>
                 {/* top nav */}
                 <div className="hidden md:flex flex-row justify-between items-center bg-primary4 py-1 px-20">
                     <p className="text-white text-xs font-light">Up to 70% off the store</p>
@@ -598,7 +615,6 @@ const Nav = () => {
 
                 </div>
             </nav>
-
         </>
     )
 }
